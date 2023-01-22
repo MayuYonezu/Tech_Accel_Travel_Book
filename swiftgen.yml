@@ -1,0 +1,10 @@
+xcassets:
+    paths: Tech_Accel_Travel_Book/Common/Assets.xcassets
+    templateName: swift4
+    output: Tech_Accel_Travel_Book/Common/Assets.swift
+
+strings:
+    paths: Tech_Accel_Travel_Book/Common/Localizable.strings
+    templateName: structured-swift4
+    output: Tech_Accel_Travel_Book/Common/Localized.swift
+## https://github.com/SwiftGen/SwiftGen/tree/6.6.2/Documentation/
