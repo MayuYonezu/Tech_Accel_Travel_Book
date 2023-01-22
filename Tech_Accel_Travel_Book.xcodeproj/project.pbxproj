@@ -10,12 +10,18 @@
 		1C7B122D297B8FD800D784A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B122C297B8FD800D784A3 /* AppDelegate.swift */; };
 		1C7B122F297B8FD800D784A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */; };
 		1C7B1231297B8FD800D784A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1230297B8FD800D784A3 /* ViewController.swift */; };
-		1C7B1234297B8FD800D784A3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B1232297B8FD800D784A3 /* Main.storyboard */; };
 		1C7B1236297B8FDA00D784A3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B1235297B8FDA00D784A3 /* Assets.xcassets */; };
 		1C7B1239297B8FDA00D784A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B1237297B8FDA00D784A3 /* LaunchScreen.storyboard */; };
 		1C7B1244297B8FDA00D784A3 /* Tech_Accel_Travel_BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1243297B8FDA00D784A3 /* Tech_Accel_Travel_BookTests.swift */; };
 		1C7B124E297B8FDA00D784A3 /* Tech_Accel_Travel_BookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B124D297B8FDA00D784A3 /* Tech_Accel_Travel_BookUITests.swift */; };
 		1C7B1250297B8FDA00D784A3 /* Tech_Accel_Travel_BookUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B124F297B8FDA00D784A3 /* Tech_Accel_Travel_BookUITestsLaunchTests.swift */; };
+		1C7B125E297B901700D784A3 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 1C7B125D297B901700D784A3 /* Realm */; };
+		1C7B1260297B901700D784A3 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1C7B125F297B901700D784A3 /* RealmSwift */; };
+		1C7B1263297B96DA00D784A3 /* EditViewContoroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1262297B96DA00D784A3 /* EditViewContoroller.swift */; };
+		1C7B1265297B971300D784A3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1264297B971300D784A3 /* ListViewController.swift */; };
+		1C7B1267297B973D00D784A3 /* LookViewContoroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */; };
+		1C7B1269297B979000D784A3 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1268297B979000D784A3 /* Project.swift */; };
+		1CDEC797297BD099009EF8AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CDEC796297BD099009EF8AB /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,7 +46,6 @@
 		1C7B122C297B8FD800D784A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		1C7B1230297B8FD800D784A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1C7B1233297B8FD800D784A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1C7B1235297B8FDA00D784A3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1C7B1238297B8FDA00D784A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C7B123A297B8FDA00D784A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,6 +54,11 @@
 		1C7B1249297B8FDA00D784A3 /* Tech_Accel_Travel_BookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tech_Accel_Travel_BookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B124D297B8FDA00D784A3 /* Tech_Accel_Travel_BookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tech_Accel_Travel_BookUITests.swift; sourceTree = "<group>"; };
 		1C7B124F297B8FDA00D784A3 /* Tech_Accel_Travel_BookUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tech_Accel_Travel_BookUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1C7B1262297B96DA00D784A3 /* EditViewContoroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewContoroller.swift; sourceTree = "<group>"; };
+		1C7B1264297B971300D784A3 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookViewContoroller.swift; sourceTree = "<group>"; };
+		1C7B1268297B979000D784A3 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		1CDEC796297BD099009EF8AB /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C7B1260297B901700D784A3 /* RealmSwift in Frameworks */,
+				1C7B125E297B901700D784A3 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,8 +113,8 @@
 			children = (
 				1C7B122C297B8FD800D784A3 /* AppDelegate.swift */,
 				1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */,
-				1C7B1230297B8FD800D784A3 /* ViewController.swift */,
-				1C7B1232297B8FD800D784A3 /* Main.storyboard */,
+				1C7B1261297B965500D784A3 /* ViewContoroller */,
+				1C7B126A297B979700D784A3 /* Models */,
 				1C7B1235297B8FDA00D784A3 /* Assets.xcassets */,
 				1C7B1237297B8FDA00D784A3 /* LaunchScreen.storyboard */,
 				1C7B123A297B8FDA00D784A3 /* Info.plist */,
@@ -127,6 +139,26 @@
 			path = Tech_Accel_Travel_BookUITests;
 			sourceTree = "<group>";
 		};
+		1C7B1261297B965500D784A3 /* ViewContoroller */ = {
+			isa = PBXGroup;
+			children = (
+				1C7B1230297B8FD800D784A3 /* ViewController.swift */,
+				1C7B1262297B96DA00D784A3 /* EditViewContoroller.swift */,
+				1C7B1264297B971300D784A3 /* ListViewController.swift */,
+				1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */,
+			);
+			path = ViewContoroller;
+			sourceTree = "<group>";
+		};
+		1C7B126A297B979700D784A3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1CDEC796297BD099009EF8AB /* Main.storyboard */,
+				1C7B1268297B979000D784A3 /* Project.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +175,10 @@
 			dependencies = (
 			);
 			name = Tech_Accel_Travel_Book;
+			packageProductDependencies = (
+				1C7B125D297B901700D784A3 /* Realm */,
+				1C7B125F297B901700D784A3 /* RealmSwift */,
+			);
 			productName = Tech_Accel_Travel_Book;
 			productReference = 1C7B1229297B8FD800D784A3 /* Tech_Accel_Travel_Book.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +251,9 @@
 				Base,
 			);
 			mainGroup = 1C7B1220297B8FD800D784A3;
+			packageReferences = (
+				1C7B125C297B901700D784A3 /* XCRemoteSwiftPackageReference "realm-swift" */,
+			);
 			productRefGroup = 1C7B122A297B8FD800D784A3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -231,9 +270,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CDEC797297BD099009EF8AB /* Main.storyboard in Resources */,
 				1C7B1239297B8FDA00D784A3 /* LaunchScreen.storyboard in Resources */,
 				1C7B1236297B8FDA00D784A3 /* Assets.xcassets in Resources */,
-				1C7B1234297B8FD800D784A3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,9 +297,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C7B1263297B96DA00D784A3 /* EditViewContoroller.swift in Sources */,
 				1C7B1231297B8FD800D784A3 /* ViewController.swift in Sources */,
 				1C7B122D297B8FD800D784A3 /* AppDelegate.swift in Sources */,
+				1C7B1265297B971300D784A3 /* ListViewController.swift in Sources */,
 				1C7B122F297B8FD800D784A3 /* SceneDelegate.swift in Sources */,
+				1C7B1269297B979000D784A3 /* Project.swift in Sources */,
+				1C7B1267297B973D00D784A3 /* LookViewContoroller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +340,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1C7B1232297B8FD800D784A3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1C7B1233297B8FD800D784A3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1C7B1237297B8FDA00D784A3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -596,6 +631,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1C7B125C297B901700D784A3 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C7B125D297B901700D784A3 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C7B125C297B901700D784A3 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		1C7B125F297B901700D784A3 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C7B125C297B901700D784A3 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1C7B1221297B8FD800D784A3 /* Project object */;
 }

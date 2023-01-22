@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  Tech_Accel_Travel_Book
+//  MissionTravel
 //
-//  Created by 田野 辺開 on 1/21/23.
+//  Created by Mayu Yonezu on 2022/06/06.
 //
 
 import UIKit
@@ -45,6 +45,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+
+        // Save changes in the application's managed object context when the application transitions to the background.
+        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
 
