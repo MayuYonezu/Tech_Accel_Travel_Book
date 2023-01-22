@@ -14,6 +14,12 @@ class ViewController: UIViewController {
     // リスト一覧ボタン
     @IBOutlet var listBtn: UIButton!
     
+    
+    
+    
+    
+    
+    
     //ピンク
     let pink = UIColor(red: 242/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1.0) // ボタン背景色設定
 
