@@ -22,6 +22,10 @@
 		1C7B1267297B973D00D784A3 /* LookViewContoroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */; };
 		1C7B1269297B979000D784A3 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1268297B979000D784A3 /* Project.swift */; };
 		1CDEC797297BD099009EF8AB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CDEC796297BD099009EF8AB /* Main.storyboard */; };
+		734D6C79297D29DD00D14F3E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734D6C78297D29DD00D14F3E /* Assets.swift */; };
+		734D6C7B297D29FA00D14F3E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 734D6C7A297D29FA00D14F3E /* Localizable.strings */; };
+		734D6C7D297D2A0300D14F3E /* Localized.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734D6C7C297D2A0300D14F3E /* Localized.swift */; };
+		734D6C7F297D2A0E00D14F3E /* Instantiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734D6C7E297D2A0E00D14F3E /* Instantiable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +63,10 @@
 		1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookViewContoroller.swift; sourceTree = "<group>"; };
 		1C7B1268297B979000D784A3 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
 		1CDEC796297BD099009EF8AB /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		734D6C78297D29DD00D14F3E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
+		734D6C7A297D29FA00D14F3E /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		734D6C7C297D2A0300D14F3E /* Localized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localized.swift; sourceTree = "<group>"; };
+		734D6C7E297D2A0E00D14F3E /* Instantiable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Instantiable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,11 +119,11 @@
 		1C7B122B297B8FD800D784A3 /* Tech_Accel_Travel_Book */ = {
 			isa = PBXGroup;
 			children = (
+				734D6C77297D29CE00D14F3E /* Common */,
 				1C7B122C297B8FD800D784A3 /* AppDelegate.swift */,
 				1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */,
 				1C7B1261297B965500D784A3 /* ViewContoroller */,
 				1C7B126A297B979700D784A3 /* Models */,
-				1C7B1235297B8FDA00D784A3 /* Assets.xcassets */,
 				1C7B1237297B8FDA00D784A3 /* LaunchScreen.storyboard */,
 				1C7B123A297B8FDA00D784A3 /* Info.plist */,
 			);
@@ -159,6 +167,18 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		734D6C77297D29CE00D14F3E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				734D6C78297D29DD00D14F3E /* Assets.swift */,
+				734D6C7A297D29FA00D14F3E /* Localizable.strings */,
+				734D6C7C297D2A0300D14F3E /* Localized.swift */,
+				734D6C7E297D2A0E00D14F3E /* Instantiable.swift */,
+				1C7B1235297B8FDA00D784A3 /* Assets.xcassets */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -169,6 +189,8 @@
 				1C7B1225297B8FD800D784A3 /* Sources */,
 				1C7B1226297B8FD800D784A3 /* Frameworks */,
 				1C7B1227297B8FD800D784A3 /* Resources */,
+				734D6C80297D2ADE00D14F3E /* ShellScript */,
+				734D6C81297D2AE000D14F3E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -271,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CDEC797297BD099009EF8AB /* Main.storyboard in Resources */,
+				734D6C7B297D29FA00D14F3E /* Localizable.strings in Resources */,
 				1C7B1239297B8FDA00D784A3 /* LaunchScreen.storyboard in Resources */,
 				1C7B1236297B8FDA00D784A3 /* Assets.xcassets in Resources */,
 			);
@@ -292,6 +315,43 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		734D6C80297D2ADE00D14F3E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if test -d /opt/homebrew/bin; then\n    PATH=/opt/homebrew/bin/:$PATH\nfi\n\nif which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		734D6C81297D2AE000D14F3E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=/opt/homebrew/bin:$PATH\n\nif which mint >/dev/null; then\n    # SwiftGen\n    xcrun --sdk macosx mint run swiftgen\nelse \n    echo 'warning: mint not installed.'\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1C7B1225297B8FD800D784A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -299,9 +359,12 @@
 			files = (
 				1C7B1263297B96DA00D784A3 /* EditViewContoroller.swift in Sources */,
 				1C7B1231297B8FD800D784A3 /* ViewController.swift in Sources */,
+				734D6C79297D29DD00D14F3E /* Assets.swift in Sources */,
 				1C7B122D297B8FD800D784A3 /* AppDelegate.swift in Sources */,
+				734D6C7D297D2A0300D14F3E /* Localized.swift in Sources */,
 				1C7B1265297B971300D784A3 /* ListViewController.swift in Sources */,
 				1C7B122F297B8FD800D784A3 /* SceneDelegate.swift in Sources */,
+				734D6C7F297D2A0E00D14F3E /* Instantiable.swift in Sources */,
 				1C7B1269297B979000D784A3 /* Project.swift in Sources */,
 				1C7B1267297B973D00D784A3 /* LookViewContoroller.swift in Sources */,
 			);

@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class Tech_Accel_Travel_BookUITestsLaunchTests: XCTestCase {
+final class TechAccelTravelBookUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true
