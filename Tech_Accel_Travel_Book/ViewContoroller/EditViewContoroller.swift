@@ -81,7 +81,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UINavigationCon
     var plansDic = [String : [Plan]]()
     
     //ピンク
-    let pink = UIColor(red: 242/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1.0) // ボタン背景色設定
+//    let pink = UIColor(red: 242/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1.0) // ボタン背景色設定
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -230,7 +230,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UINavigationCon
         let appearance = UINavigationBarAppearance()
         
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = pink
+        appearance.backgroundColor = UIColor.init(named: "mainPink")
         appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText]
         navigationController?.navigationBar.prefersLargeTitles = true
         
