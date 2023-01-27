@@ -6,15 +6,15 @@
   
 */
 "tests" = "テスト";
-"enter title" = "タイトルを入力";
-"departure date" = "出発日";
-"last date" = "最終日";
-"time to start" = "始まる時間";
-"time to finish" = "終わる時間";
-"date select" = "日程選択";
-"appointment details" = "予定の詳細";
-"take a good picture" = "映えな写真を撮る";
-"take a stylish vlog" = "おしゃれなVlogを撮る";
-"post 10 stories per day" = "ストーリーを1日10個載せる";
-"Shoot and edit YouTuber-like videos" = "YouTuber風な動画を撮って編集";
-"take funny pictures" = "面白写真を撮る";
+"enter_title" = "タイトルを入力";
+"departure_date" = "出発日";
+"last_date" = "最終日";
+"time_to_start" = "始まる時間";
+"time_to_finish" = "終わる時間";
+"date_select" = "日程選択";
+"appointment_details" = "予定の詳細";
+"take_a_good_picture" = "映えな写真を撮る";
+"take_a_stylish_vlog" = "おしゃれなVlogを撮る";
+"post_10_stories_per_day" = "ストーリーを1日10個載せる";
+"Shoot_and_edit_YouTuber-like_videos" = "YouTuber風な動画を撮って編集";
+"take_funny_pictures" = "面白写真を撮る";
