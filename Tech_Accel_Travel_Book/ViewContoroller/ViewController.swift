@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     func NavigationDesign(){
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.init(named: "mainPink")
+        appearance.backgroundColor = UIColor(asset: Asset.mainPink)
         appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "home"

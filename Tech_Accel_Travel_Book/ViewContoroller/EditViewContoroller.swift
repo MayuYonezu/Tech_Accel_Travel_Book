@@ -227,7 +227,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UINavigationCon
         let appearance = UINavigationBarAppearance()
         
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.init(named: "mainPink")
+        appearance.backgroundColor = UIColor(asset: Asset.mainPink)
         appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText]
         navigationController?.navigationBar.prefersLargeTitles = true
         
