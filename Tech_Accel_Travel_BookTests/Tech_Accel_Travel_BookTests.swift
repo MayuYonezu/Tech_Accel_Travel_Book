@@ -8,7 +8,7 @@
 import XCTest
 @testable import Tech_Accel_Travel_Book
 
-final class Tech_Accel_Travel_BookTests: XCTestCase {
+final class TechAccelTravelBookTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
