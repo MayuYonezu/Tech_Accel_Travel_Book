@@ -30,15 +30,15 @@ class LookViewController: UIViewController {
     // Realm系の処理
     func realm_process() {
         // 文字列で条件文を書いてデータを取得
-        let projectData = realm.objects(Project.self).filter("id == '\(num)'")
-        print(projectData)
-        for data in projectData {
-            titleLabel.text = "\(data.title)"
-            startDayLabel.text = "\(data.startDays)"
-            finishDayLabel.text = "\(data.finishDays)"
-            missionLabel.text = "\(data.mission)"
-            plans = Array(data.plans)
-        }
+//        let projectData = realm.objects(Project.self).filter("id == '\(num)'")
+//        print(projectData)
+//        for data in projectData {
+//            titleLabel.text = "\(data.title)"
+//            startDayLabel.text = "\(data.startDays)"
+//            finishDayLabel.text = "\(data.finishDays)"
+//            missionLabel.text = "\(data.mission)"
+//            plans = Array(data.plans)
+//        }
         tableView.reloadData()
     }
     // NavigationBar装飾
@@ -56,11 +56,11 @@ class LookViewController: UIViewController {
     }
     func getPlanData() {
         // 文字列で条件文を書いてデータを取得
-        let projectData = realm.objects(Project.self).filter("id == '\(num)'")
-        for data in projectData {
-            plans = Array(data.plans)
-            tableView.reloadData()
-        }
+//        let projectData = realm.objects(Project.self).filter("id == '\(num)'")
+//        for data in projectData {
+//            plans = Array(data.plans)
+//            tableView.reloadData()
+//        }
     }
     func getPlanDicData() {
         // 全部の値が取得されてしまう

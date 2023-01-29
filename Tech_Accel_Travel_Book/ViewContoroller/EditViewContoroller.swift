@@ -41,8 +41,8 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
                                          target: self,
                                          action: #selector(saveButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = saveButtonItem
-        let projectData = realm.objects(Project.self)
-        print("🟥全てのデータ\(projectData)")
+//        let projectData = realm.objects(Project.self)
+//        print("🟥全てのデータ\(projectData)")
         tableView.isEditing = true
         tableView.allowsSelectionDuringEditing = true
         setUpPicker()
@@ -69,8 +69,8 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         view.endEditing(true)
     }
     func getID() {
-        proID = realm.objects(Project.self)
-        idLabel.text = String(proID!.count)
+//        proID = realm.objects(Project.self)
+//        idLabel.text = String(proID!.count)
     }
     let startDayPicker: UIDatePicker = {
         let dayPicker = UIDatePicker()
@@ -191,19 +191,19 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         project.startDays = startDayText
         project.finishDays = finishDayText
         project.mission = missionText
-        do {
-            try realm.write({
-                realm.add(project) // レコードを追加
-            })
-        } catch {}
-        print(project)
-        do {
-            try realm.write({
-                for plan in plans {
-                    project.plans.append(plan)
-                }
-            })
-        } catch {}
+//        do {
+//            try realm.write({
+//                realm.add(project) // レコードを追加
+//            })
+//        } catch {}
+//        print(project)
+//        do {
+//            try realm.write({
+//                for plan in plans {
+//                    project.plans.append(plan)
+//                }
+//            })
+//        } catch {}
     }
     @IBAction func addBtn() {
         guard
