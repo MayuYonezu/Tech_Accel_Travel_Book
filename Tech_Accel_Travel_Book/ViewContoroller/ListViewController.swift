@@ -22,8 +22,8 @@ class ListViewController: UIViewController {
         navigationDesign()
         setUpViews()
         getProjectData()
-        let projectData = realm.objects(Project.self)
-        print("🟥全てのデータ\(projectData)")
+//        let projectData = realm.objects(Project.self)
+//        print("🟥全てのデータ\(projectData)")
 
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -36,7 +36,7 @@ class ListViewController: UIViewController {
     }
     // Realmからデータを取得してテーブルビューを再リロードするメソッド
     func getProjectData() {
-        projects = Array(realm.objects(Project.self)).reversed()  // Realm DBから保存されてるツイートを全取得
+//        projects = Array(realm.objects(Project.self)).reversed()  // Realm DBから保存されてるツイートを全取得
         tableView.reloadData() // テーブルビューをリロード
     }
     // NavigationBar装飾
