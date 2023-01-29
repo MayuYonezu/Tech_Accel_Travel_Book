@@ -14,7 +14,7 @@ class Project: Object {
     @objc dynamic var startDays: String = ""
     @objc dynamic var finishDays: String = ""
     @objc dynamic var mission: String = ""
-    let plans = List<Plan> ()
+    let plans = List<Plan>()
     override static func primaryKey() -> String? {
             return "id"
         }
@@ -26,11 +26,11 @@ class Plan: Object {
     @objc dynamic var startTime: String = ""
     @objc dynamic var finishTime: String = ""
     @objc dynamic var daySection: String = ""
-    
 //    override static func primaryKey() -> String? {
 //            return "daySection"
 //        }
     let parentCategory = LinkingObjects(fromType: Project.self, property: "plans")
 }
+
 let realm = try! Realm()
 let sortedStartTime = realm.objects(Plan.self).sorted(byKeyPath: "startTime")
