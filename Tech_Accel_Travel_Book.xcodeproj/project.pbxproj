@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C7B122D297B8FD800D784A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B122C297B8FD800D784A3 /* AppDelegate.swift */; };
 		1C7B122F297B8FD800D784A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */; };
-		1C7B1231297B8FD800D784A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1230297B8FD800D784A3 /* ViewController.swift */; };
+		1C7B1231297B8FD800D784A3 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1230297B8FD800D784A3 /* WelcomeViewController.swift */; };
 		1C7B1239297B8FDA00D784A3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1C7B1237297B8FDA00D784A3 /* LaunchScreen.storyboard */; };
 		1C7B1244297B8FDA00D784A3 /* Tech_Accel_Travel_BookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1243297B8FDA00D784A3 /* Tech_Accel_Travel_BookTests.swift */; };
 		1C7B124E297B8FDA00D784A3 /* Tech_Accel_Travel_BookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B124D297B8FDA00D784A3 /* Tech_Accel_Travel_BookUITests.swift */; };
@@ -49,7 +49,7 @@
 		1C7B1229297B8FD800D784A3 /* Tech_Accel_Travel_Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tech_Accel_Travel_Book.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B122C297B8FD800D784A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1C7B1230297B8FD800D784A3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1C7B1230297B8FD800D784A3 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		1C7B1238297B8FDA00D784A3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1C7B123A297B8FDA00D784A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C7B123F297B8FDA00D784A3 /* Tech_Accel_Travel_BookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tech_Accel_Travel_BookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,7 +150,7 @@
 		1C7B1261297B965500D784A3 /* ViewContoroller */ = {
 			isa = PBXGroup;
 			children = (
-				1C7B1230297B8FD800D784A3 /* ViewController.swift */,
+				1C7B1230297B8FD800D784A3 /* WelcomeViewController.swift */,
 				1C7B1262297B96DA00D784A3 /* EditViewContoroller.swift */,
 				1C7B1264297B971300D784A3 /* ListViewController.swift */,
 				1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */,
@@ -358,7 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C7B1263297B96DA00D784A3 /* EditViewContoroller.swift in Sources */,
-				1C7B1231297B8FD800D784A3 /* ViewController.swift in Sources */,
+				1C7B1231297B8FD800D784A3 /* WelcomeViewController.swift in Sources */,
 				734D6C79297D29DD00D14F3E /* Assets.swift in Sources */,
 				1C7B122D297B8FD800D784A3 /* AppDelegate.swift in Sources */,
 				734D6C7D297D2A0300D14F3E /* Localized.swift in Sources */,

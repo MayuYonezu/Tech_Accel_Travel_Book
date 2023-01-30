@@ -10,6 +10,12 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// home
+  internal static let home = L10n.tr("Localizable", "home", fallback: "home")
+  /// New Project
+  internal static let newProject = L10n.tr("Localizable", "new_project", fallback: "New Project")
+  /// Project List
+  internal static let projectList = L10n.tr("Localizable", "project_list", fallback: "Project List")
   /// Localizable.strings
   ///   Tech_Accel_Travel_Book
   /// 
