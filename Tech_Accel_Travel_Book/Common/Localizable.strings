@@ -6,3 +6,28 @@
   
 */
 "tests" = "テスト";
+"enter_title" = "タイトルを入力";
+"departure_date" = "出発日";
+"last_date" = "最終日";
+"time_to_start" = "始まる時間";
+"time_to_finish" = "終わる時間";
+"date_select" = "日程選択";
+"appointment_details" = "予定の詳細";
+"take_a_good_picture" = "映えな写真を撮る";
+"take_a_stylish_vlog" = "おしゃれなVlogを撮る";
+"post_10_stories_per_day" = "ストーリーを1日10個載せる";
+"shoot_and_edit_YouTuber-like_videos" = "YouTuber風な動画を撮って編集";
+"take_funny_pictures" = "面白写真を撮る";
+"home" = "home";
+"day1" = "Day1";
+"day2" = "Day2";
+"day3" = "Day3";
+"day4" = "Day4";
+"day5" = "Day5";
+"day6" = "Day6";
+"day7" = "Day7";
+"save" = "Save";
+"ok" = "OK";
+"success" = "Success";
+"save_completed" = "保存が完了しました";
+
