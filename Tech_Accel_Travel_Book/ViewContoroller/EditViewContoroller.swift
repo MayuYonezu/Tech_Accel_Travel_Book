@@ -6,7 +6,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         return 1
     }
     var pickerView = UIPickerView()
-    var data = ["Day1", "Day2", "Day3", "Day4", "Day5", "Day6", "Day7"]
+    var data = [L10n.day1, L10n.day2, L10n.day3, L10n.day4,L10n.day5, L10n.day6, L10n.day7]
     @IBOutlet var idLabel: UILabel!
     @IBOutlet weak var titleLabel: UITextField!
     @IBOutlet weak var startDay: UITextField!
@@ -26,7 +26,6 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     var project = [Project]()
     var plans = [Plan]()
     var plansDic = [String: [Plan]]()
-    let pink = UIColor(red: 242/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1.0) // ボタン背景色設定
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -36,7 +35,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         setUpDesign()
         navigationDesign()
         // SaveButton
-        saveButtonItem = UIBarButtonItem(title: "Save",
+        saveButtonItem = UIBarButtonItem(title: L10n.save,
                                          style: .plain,
                                          target: self,
                                          action: #selector(saveButtonPressed(_:)))
@@ -134,19 +133,19 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         alertController = UIAlertController(title: title,
                                             message: message,
                                             preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK",
+        alertController.addAction(UIAlertAction(title: L10n.ok,
                                                 style: .default,
                                                 handler: nil))
         present(alertController, animated: true)
     }
     func setUpDesign() {
-        titleLabel.placeholder = "タイトルを入力"
-        startDay.placeholder = "出発日"
-        finishDay.placeholder = "最終日"
-        startTimeTextField.placeholder = "始まる時間"
-        finishTimeTextField.placeholder = "終わる時間"
-        daySectionTextField.placeholder = "日程選択"
-        detailTextFiled.placeholder = "予定の詳細"
+        titleLabel.placeholder = L10n.enterTitle
+        startDay.placeholder = L10n.departureDate
+        finishDay.placeholder = L10n.lastDate
+        startTimeTextField.placeholder = L10n.timeToStart
+        finishTimeTextField.placeholder = L10n.timeToFinish
+        daySectionTextField.placeholder = L10n.dateSelect
+        detailTextFiled.placeholder = L10n.appointmentDetails
         mission_random()
         startDay.delegate = self
         startDay.inputView = startDayPicker
@@ -161,7 +160,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         mission_random()
     }
     func mission_random() {
-        let missionArray = ["映えな写真を撮る", "おしゃれなVlogを撮る", "ストーリーを1日10個載せる", "YouTuber風な動画を撮って編集", "面白写真を撮る"]
+        let missionArray = [L10n.takeAGoodPicture, L10n.takeFunnyPictures, L10n.takeAStylishVlog, L10n.post10StoriesPerDay, L10n.shootAndEditYouTuberLikeVideos]
         let randomMission = missionArray.randomElement()
         missionLabel.text = randomMission
     }
@@ -173,8 +172,8 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             finishDay.text != nil,
             missionLabel.text != nil else {return}
         print("プロジェクト保存")
-        alert(title: "Success",
-              message: "保存が完了しました")
+        alert(title: L10n.success,
+              message: L10n.saveCompleted)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.navigationController?.popToRootViewController(animated: true)
         }
@@ -320,13 +319,13 @@ extension EditViewController: UINavigationControllerDelegate {
     func navigationDesign() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = pink
+        appearance.backgroundColor = UIColor(asset: Asset.mainPink)
         appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText]
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
-        saveButtonItem = UIBarButtonItem(title: "Save",
+        saveButtonItem = UIBarButtonItem(title: L10n.save,
                                          style: .plain,
                                          target: self,
                                          action: #selector(saveButtonPressed(_:)))

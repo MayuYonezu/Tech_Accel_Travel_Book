@@ -13,7 +13,6 @@ class LookViewController: UIViewController {
     var num = Int()
     var doneButtonItem: UIBarButtonItem!
 //    let realm = try! Realm()
-    let pink = UIColor(red: 242/255.0, green: 167/255.0, blue: 167/255.0, alpha: 1.0) // ボタン背景色設定
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -45,7 +44,7 @@ class LookViewController: UIViewController {
     func navigationDesign() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = pink
+        appearance.backgroundColor = UIColor(asset: Asset.mainPink)
         appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText]
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
