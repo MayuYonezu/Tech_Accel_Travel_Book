@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03BCBC2A2987F11C00B3FF1A /* MainRealm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03BCBC292987F11C00B3FF1A /* MainRealm.swift */; };
 		1C7B122D297B8FD800D784A3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B122C297B8FD800D784A3 /* AppDelegate.swift */; };
 		1C7B122F297B8FD800D784A3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */; };
 		1C7B1231297B8FD800D784A3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1230297B8FD800D784A3 /* ViewController.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03BCBC292987F11C00B3FF1A /* MainRealm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRealm.swift; sourceTree = "<group>"; };
 		1C7B1229297B8FD800D784A3 /* Tech_Accel_Travel_Book.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tech_Accel_Travel_Book.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C7B122C297B8FD800D784A3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 			children = (
 				1CDEC796297BD099009EF8AB /* Main.storyboard */,
 				1C7B1268297B979000D784A3 /* Project.swift */,
+				03BCBC292987F11C00B3FF1A /* MainRealm.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				734D6C7D297D2A0300D14F3E /* Localized.swift in Sources */,
 				1C7B1265297B971300D784A3 /* ListViewController.swift in Sources */,
 				1C7B122F297B8FD800D784A3 /* SceneDelegate.swift in Sources */,
+				03BCBC2A2987F11C00B3FF1A /* MainRealm.swift in Sources */,
 				734D6C7F297D2A0E00D14F3E /* Instantiable.swift in Sources */,
 				1C7B1269297B979000D784A3 /* Project.swift in Sources */,
 				1C7B1267297B973D00D784A3 /* LookViewContoroller.swift in Sources */,
