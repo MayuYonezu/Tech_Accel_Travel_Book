@@ -31,5 +31,3 @@ class Plan: Object {
 //        }
     let parentCategory = LinkingObjects(fromType: Project.self, property: "plans")
 }
-//let realm = try! Realm()
-//let sortedStartTime = realm.objects(Plan.self).sorted(byKeyPath: "startTime")

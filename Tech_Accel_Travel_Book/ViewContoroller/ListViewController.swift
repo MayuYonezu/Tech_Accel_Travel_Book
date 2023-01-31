@@ -21,7 +21,6 @@ class ListViewController: UIViewController {
         navigationDesign()
         setUpViews()
         getProjectData()
-//        print("🟥全てのデータ\(projectData)")
 
     }
     override func viewWillAppear(_ animated: Bool) {

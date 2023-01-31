@@ -3,8 +3,8 @@ import RealmSwift
 
 class LookViewController: UIViewController {
     var projectData: Project?
-    var plans = [Plan]()
-    var plansDic = [String: [Plan]]()
+    var plans = List<Plan>()
+    var plansDictionary = [String: [Plan]]()
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var startDayLabel: UILabel!
     @IBOutlet var finishDayLabel: UILabel!
@@ -29,7 +29,6 @@ class LookViewController: UIViewController {
     func realm_process() {
         // 文字列で条件文を書いてデータを取得
         guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
-            print("nilでした")
             return
         }
         print(projectData)
@@ -39,7 +38,7 @@ class LookViewController: UIViewController {
             startDayLabel.text = "\(data.startDays)"
             finishDayLabel.text = "\(data.finishDays)"
             missionLabel.text = "\(data.mission)"
-            plans = Array(data.plans)
+            plans = data.plans
         }
         tableView.reloadData()
     }
@@ -59,28 +58,26 @@ class LookViewController: UIViewController {
     func getPlanData() {
         // 文字列で条件文を書いてデータを取得
         guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
-            print("nilでした")
             return
         }
         for data in projectData {
-            plans = Array(data.plans)
+            plans = data.plans
             tableView.reloadData()
         }
     }
     func getPlanDicData() {
         // 全部の値が取得されてしまう
         guard let plans = MainRealm.shared.realm?.objects(Plan.self).reversed() else{
-            print("nilでした")
             return
         }
-        plansDic = [:]
+        plansDictionary = [:]
         for getPlan in plans {
-            if plansDic.keys.contains(getPlan.daySection) {
+            if plansDictionary.keys.contains(getPlan.daySection) {
                 // ディクショナリーの鍵に日付が含まれてたら、kを追加
-                plansDic[getPlan.daySection]?.append(getPlan)
+                plansDictionary[getPlan.daySection]?.append(getPlan)
             } else {
                 // ディクショナリーの鍵に日付が含まれてなかったら配列を初期化
-                plansDic[getPlan.daySection] = [getPlan]
+                plansDictionary[getPlan.daySection] = [getPlan]
             }
         }
         tableView.reloadData()
@@ -89,26 +86,26 @@ class LookViewController: UIViewController {
 
 extension LookViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let array = Array(plansDic.keys).sorted()
+        let array = Array(plansDictionary.keys).sorted()
         let key = array[section]
-        return plansDic[key]?.count ?? 0
+        return plansDictionary[key]?.count ?? 0
        // return plans.count
       }
     // セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
-        return plansDic.keys.count
+        return plansDictionary.keys.count
     }
 
     // セクションのタイトル
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let array = Array(plansDic.keys).sorted()
+        let array = Array(plansDictionary.keys).sorted()
         let key = array[section]
         return key
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let key = Array(plansDic.keys).sorted()[indexPath.section] // 0
-        let plann = plansDic[key]?[indexPath.row]
+        let key = Array(plansDictionary.keys).sorted()[indexPath.section] // 0
+        let plann = plansDictionary[key]?[indexPath.row]
         (cell.viewWithTag(1) as? UILabel)!.text = plann?.startTime
         (cell.viewWithTag(2) as? UILabel)!.text = plann?.finishTime
         (cell.viewWithTag(3) as? UILabel)!.text = plann?.planText
