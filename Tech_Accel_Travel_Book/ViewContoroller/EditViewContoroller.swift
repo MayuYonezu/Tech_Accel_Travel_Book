@@ -31,7 +31,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         tableView.delegate = self
         tableView.dataSource = self
         tapGesture.cancelsTouchesInView = false
-        getID()
+        getProjectId()
         setUpDesign()
         navigationDesign()
         // SaveButton
@@ -65,7 +65,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    func getID() {
+    func getProjectId() {
         guard let projectId = MainRealm.shared.realm?.objects(Project.self) else {
             return
         }
@@ -205,7 +205,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
             }
         })
     }
-    @IBAction func addBtn() {
+    @IBAction func addButton() {
         guard
             detailTextFiled.text != nil,
             startTimeTextField.text != nil,
