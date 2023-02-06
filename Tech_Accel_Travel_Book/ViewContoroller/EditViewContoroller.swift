@@ -31,7 +31,7 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         tableView.delegate = self
         tableView.dataSource = self
         tapGesture.cancelsTouchesInView = false
-        getID()
+        getProjectId()
         setUpDesign()
         navigationDesign()
         // SaveButton
@@ -40,8 +40,6 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
                                          target: self,
                                          action: #selector(saveButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = saveButtonItem
-//        let projectData = realm.objects(Project.self)
-//        print("🟥全てのデータ\(projectData)")
         tableView.isEditing = true
         tableView.allowsSelectionDuringEditing = true
         setUpPicker()
@@ -67,9 +65,11 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
     }
-    func getID() {
-//        proID = realm.objects(Project.self)
-//        idLabel.text = String(proID!.count)
+    func getProjectId() {
+        guard let projectId = MainRealm.shared.realm?.objects(Project.self) else {
+            return
+        }
+        idLabel.text = String(projectId.count)
     }
     let startDayPicker: UIDatePicker = {
         let dayPicker = UIDatePicker()
@@ -190,21 +190,22 @@ class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerCo
         project.startDays = startDayText
         project.finishDays = finishDayText
         project.mission = missionText
-//        do {
-//            try realm.write({
-//                realm.add(project) // レコードを追加
-//            })
-//        } catch {}
-//        print(project)
-//        do {
-//            try realm.write({
-//                for plan in plans {
-//                    project.plans.append(plan)
-//                }
-//            })
-//        } catch {}
+        guard let realm = MainRealm.shared.realm else {
+            return
+        }
+        
+        try? realm.write({
+            realm.add(project) // レコードを追加
+        })
+        print(project)
+        
+        try? realm.write({
+            for plan in plans {
+                project.plans.append(plan)
+            }
+        })
     }
-    @IBAction func addBtn() {
+    @IBAction func addButton() {
         guard
             detailTextFiled.text != nil,
             startTimeTextField.text != nil,

@@ -3,8 +3,8 @@ import RealmSwift
 
 class LookViewController: UIViewController {
     var projectData: Project?
-    var plans = [Plan]()
-    var plansDic = [String: [Plan]]()
+    var plans = List<Plan>()
+    var plansDictionary = [String: [Plan]]()
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var startDayLabel: UILabel!
     @IBOutlet var finishDayLabel: UILabel!
@@ -12,7 +12,6 @@ class LookViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     var num = Int()
     var doneButtonItem: UIBarButtonItem!
-//    let realm = try! Realm()
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -29,15 +28,18 @@ class LookViewController: UIViewController {
     // Realm系の処理
     func realm_process() {
         // 文字列で条件文を書いてデータを取得
-//        let projectData = realm.objects(Project.self).filter("id == '\(num)'")
-//        print(projectData)
-//        for data in projectData {
-//            titleLabel.text = "\(data.title)"
-//            startDayLabel.text = "\(data.startDays)"
-//            finishDayLabel.text = "\(data.finishDays)"
-//            missionLabel.text = "\(data.mission)"
-//            plans = Array(data.plans)
-//        }
+        guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
+            return
+        }
+        print(projectData)
+        
+        for data in projectData {
+            titleLabel.text = "\(data.title)"
+            startDayLabel.text = "\(data.startDays)"
+            finishDayLabel.text = "\(data.finishDays)"
+            missionLabel.text = "\(data.mission)"
+            plans = data.plans
+        }
         tableView.reloadData()
     }
     // NavigationBar装飾
@@ -55,23 +57,27 @@ class LookViewController: UIViewController {
     }
     func getPlanData() {
         // 文字列で条件文を書いてデータを取得
-//        let projectData = realm.objects(Project.self).filter("id == '\(num)'")
-//        for data in projectData {
-//            plans = Array(data.plans)
-//            tableView.reloadData()
-//        }
+        guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
+            return
+        }
+        for data in projectData {
+            plans = data.plans
+            tableView.reloadData()
+        }
     }
     func getPlanDicData() {
         // 全部の値が取得されてしまう
-        // plans = Array(realm.objects(Plan.self)).reversed()
-        plansDic = [:]
+        guard let plans = MainRealm.shared.realm?.objects(Plan.self).reversed() else{
+            return
+        }
+        plansDictionary = [:]
         for getPlan in plans {
-            if plansDic.keys.contains(getPlan.daySection) {
+            if plansDictionary.keys.contains(getPlan.daySection) {
                 // ディクショナリーの鍵に日付が含まれてたら、kを追加
-                plansDic[getPlan.daySection]?.append(getPlan)
+                plansDictionary[getPlan.daySection]?.append(getPlan)
             } else {
                 // ディクショナリーの鍵に日付が含まれてなかったら配列を初期化
-                plansDic[getPlan.daySection] = [getPlan]
+                plansDictionary[getPlan.daySection] = [getPlan]
             }
         }
         tableView.reloadData()
@@ -80,26 +86,26 @@ class LookViewController: UIViewController {
 
 extension LookViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let array = Array(plansDic.keys).sorted()
+        let array = Array(plansDictionary.keys).sorted()
         let key = array[section]
-        return plansDic[key]?.count ?? 0
+        return plansDictionary[key]?.count ?? 0
        // return plans.count
       }
     // セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
-        return plansDic.keys.count
+        return plansDictionary.keys.count
     }
 
     // セクションのタイトル
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let array = Array(plansDic.keys).sorted()
+        let array = Array(plansDictionary.keys).sorted()
         let key = array[section]
         return key
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let key = Array(plansDic.keys).sorted()[indexPath.section] // 0
-        let plann = plansDic[key]?[indexPath.row]
+        let key = Array(plansDictionary.keys).sorted()[indexPath.section] // 0
+        let plann = plansDictionary[key]?[indexPath.row]
         (cell.viewWithTag(1) as? UILabel)!.text = plann?.startTime
         (cell.viewWithTag(2) as? UILabel)!.text = plann?.finishTime
         (cell.viewWithTag(3) as? UILabel)!.text = plann?.planText
