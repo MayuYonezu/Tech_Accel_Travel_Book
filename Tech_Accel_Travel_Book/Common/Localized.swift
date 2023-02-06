@@ -36,10 +36,14 @@ internal enum L10n {
   internal static let home = L10n.tr("Localizable", "home", fallback: "home")
   /// 最終日
   internal static let lastDate = L10n.tr("Localizable", "last_date", fallback: "最終日")
+  /// New Project
+  internal static let newProject = L10n.tr("Localizable", "new_project", fallback: "New Project")
   /// OK
   internal static let ok = L10n.tr("Localizable", "ok", fallback: "OK")
   /// ストーリーを1日10個載せる
   internal static let post10StoriesPerDay = L10n.tr("Localizable", "post_10_stories_per_day", fallback: "ストーリーを1日10個載せる")
+  /// Project List
+  internal static let projectList = L10n.tr("Localizable", "project_list", fallback: "Project List")
   /// Save
   internal static let save = L10n.tr("Localizable", "save", fallback: "Save")
   /// 保存が完了しました
