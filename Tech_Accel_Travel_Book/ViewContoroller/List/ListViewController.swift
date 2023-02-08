@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-class ListViewController: UIViewController {
+final class ListViewController: UIViewController {
     var projects = [Project]()
     //　受け渡したい値
     var num = Int()

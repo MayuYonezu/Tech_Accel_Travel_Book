@@ -1,29 +1,134 @@
 import UIKit
 import RealmSwift
 
-class LookViewController: UIViewController {
+final class LookViewController: UIViewController {
     var projectData: Project?
     var plans = List<Plan>()
     var plansDictionary = [String: [Plan]]()
-    @IBOutlet var titleLabel: UILabel!
-    @IBOutlet var startDayLabel: UILabel!
-    @IBOutlet var finishDayLabel: UILabel!
-    @IBOutlet var missionLabel: UILabel!
+//    @IBOutlet var titleLabel: UILabel!
+//    @IBOutlet var startDayLabel: UILabel!
+//    @IBOutlet var finishDayLabel: UILabel!
+//    @IBOutlet var missionLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     var num = Int()
     var doneButtonItem: UIBarButtonItem!
+    // titleLabel生成
+    private var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Title"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+    }()
+    // startDayLabel生成
+    private var startDayLabel: UILabel = {
+        let startDayLabel = UILabel()
+        startDayLabel.text = "0000/00/00"
+        startDayLabel.font = UIFont.systemFont(ofSize: 17)
+        startDayLabel.translatesAutoresizingMaskIntoConstraints = false
+        return startDayLabel
+    }()
+    // finishLabel生成
+    private var finishDayLabel: UILabel = {
+        let finishDayLabel = UILabel()
+        finishDayLabel.text = "0000/00/00"
+        finishDayLabel.font = UIFont.systemFont(ofSize: 17)
+        finishDayLabel.translatesAutoresizingMaskIntoConstraints = false
+        return finishDayLabel
+    }()
+    // tildeLabel生成
+    private var tildeLabel: UILabel = {
+        let tildeLabel = UILabel()
+        tildeLabel.text = "~"
+        tildeLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        tildeLabel.translatesAutoresizingMaskIntoConstraints = false
+        return tildeLabel
+    }()
+    // missionTitleLable生成
+    private var missionTitleLabel: UILabel = {
+        let missionTitleLabel = UILabel()
+        missionTitleLabel.text = "Mission"
+        missionTitleLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        missionTitleLabel.textColor = UIColor(asset: Asset.mainPink)
+        missionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return missionTitleLabel
+    }()
+    // missionLabel生成
+    private var missionLabel: UILabel = {
+        let missionLabel = UILabel()
+        missionLabel.text = "aaa"
+        missionLabel.font = UIFont.systemFont(ofSize: 17)
+        missionLabel.translatesAutoresizingMaskIntoConstraints = false
+        return missionLabel
+    }()
+    private var mainPinkImageView: UIImageView = {
+        let mainPinkImageView = UIImageView()
+        mainPinkImageView.backgroundColor = UIColor(asset: Asset.mainPink)
+        mainPinkImageView.translatesAutoresizingMaskIntoConstraints = false
+        return mainPinkImageView
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        navigationDesign()
-        print("id")
-        print("id番号は", num, "番です")
-        realm_process()
-        getPlanData()
-        getPlanDicData()
-        print(plans)
+        // backgroundColor指定
+        view.backgroundColor = .white
+        // Viewに表示
+        view.addSubview(titleLabel)
+        view.addSubview(startDayLabel)
+        view.addSubview(finishDayLabel)
+        view.addSubview(tildeLabel)
+        view.addSubview(missionLabel)
+        view.addSubview(missionTitleLabel)
+        view.addSubview(mainPinkImageView)
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        navigationDesign()
+//        print("id")
+//        print("id番号は", num, "番です")
+//        realm_process()
+//        getPlanData()
+//        getPlanDicData()
+//        print(plans)
         // Do any additional setup after loading the view.
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        // titleLabel
+        NSLayoutConstraint.activate([
+            titleLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
+        ])
+        // tildeLabel
+        NSLayoutConstraint.activate([
+            tildeLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 40),
+            tildeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
+        ])
+        // startDayLabel
+        NSLayoutConstraint.activate([
+            startDayLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 40),
+            startDayLabel.centerXAnchor.constraint(equalTo: tildeLabel.centerXAnchor, constant: -70)
+        ])
+        // finishDayLabel
+        NSLayoutConstraint.activate([
+            finishDayLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 40),
+            finishDayLabel.centerXAnchor.constraint(equalTo: tildeLabel.centerXAnchor, constant: 70)
+        ])
+        // missionTitleLabel
+        NSLayoutConstraint.activate([
+            missionTitleLabel.centerYAnchor.constraint(equalTo: startDayLabel.centerYAnchor, constant: 45),
+            missionTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ])
+        // missionLabel
+        NSLayoutConstraint.activate([
+            missionLabel.centerYAnchor.constraint(equalTo: startDayLabel.centerYAnchor, constant: 45),
+            missionLabel.leadingAnchor.constraint(equalTo: missionTitleLabel.trailingAnchor, constant: 10)
+        ])
+        // mainPinkImageView
+        NSLayoutConstraint.activate([
+            mainPinkImageView.centerYAnchor.constraint(equalTo: missionTitleLabel.bottomAnchor, constant: 3),
+            mainPinkImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            mainPinkImageView.heightAnchor.constraint(equalToConstant: 3),
+            mainPinkImageView.widthAnchor.constraint(equalToConstant: 355)
+        ])
     }
     // Realm系の処理
     func realm_process() {
@@ -32,7 +137,6 @@ class LookViewController: UIViewController {
             return
         }
         print(projectData)
-        
         for data in projectData {
             titleLabel.text = "\(data.title)"
             startDayLabel.text = "\(data.startDays)"
@@ -67,7 +171,7 @@ class LookViewController: UIViewController {
     }
     func getPlanDicData() {
         // 全部の値が取得されてしまう
-        guard let plans = MainRealm.shared.realm?.objects(Plan.self).reversed() else{
+        guard let plans = MainRealm.shared.realm?.objects(Plan.self).reversed() else {
             return
         }
         plansDictionary = [:]
