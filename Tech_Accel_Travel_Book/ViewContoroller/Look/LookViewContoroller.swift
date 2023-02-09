@@ -5,10 +5,6 @@ final class LookViewController: UIViewController {
     var projectData: Project?
     var plans = List<Plan>()
     var plansDictionary = [String: [Plan]]()
-//    @IBOutlet var titleLabel: UILabel!
-//    @IBOutlet var startDayLabel: UILabel!
-//    @IBOutlet var finishDayLabel: UILabel!
-//    @IBOutlet var missionLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     var num = Int()
     var doneButtonItem: UIBarButtonItem!
@@ -79,16 +75,6 @@ final class LookViewController: UIViewController {
         view.addSubview(missionLabel)
         view.addSubview(missionTitleLabel)
         view.addSubview(mainPinkImageView)
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        navigationDesign()
-//        print("id")
-//        print("id番号は", num, "番です")
-//        realm_process()
-//        getPlanData()
-//        getPlanDicData()
-//        print(plans)
-        // Do any additional setup after loading the view.
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
