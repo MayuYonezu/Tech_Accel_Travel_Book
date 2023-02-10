@@ -1,12 +1,12 @@
 import UIKit
 import RealmSwift
 
-class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate {
+final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     var pickerView = UIPickerView()
-    var data = [L10n.day1, L10n.day2, L10n.day3, L10n.day4,L10n.day5, L10n.day6, L10n.day7]
+    var data = [L10n.day1, L10n.day2, L10n.day3, L10n.day4, L10n.day5, L10n.day6, L10n.day7]
     @IBOutlet var idLabel: UILabel!
     @IBOutlet weak var titleLabel: UITextField!
     @IBOutlet weak var startDay: UITextField!
