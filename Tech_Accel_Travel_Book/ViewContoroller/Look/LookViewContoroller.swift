@@ -80,40 +80,40 @@ final class LookViewController: UIViewController {
         super.viewDidLayoutSubviews()
         // titleLabel
         NSLayoutConstraint.activate([
-            titleLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 50),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
         ])
         // tildeLabel
         NSLayoutConstraint.activate([
-            tildeLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 40),
+            tildeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
             tildeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
         ])
         // startDayLabel
         NSLayoutConstraint.activate([
-            startDayLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 40),
-            startDayLabel.centerXAnchor.constraint(equalTo: tildeLabel.centerXAnchor, constant: -70)
+            startDayLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            startDayLabel.trailingAnchor.constraint(equalTo: tildeLabel.leadingAnchor, constant: -20)
         ])
         // finishDayLabel
         NSLayoutConstraint.activate([
-            finishDayLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor, constant: 40),
-            finishDayLabel.centerXAnchor.constraint(equalTo: tildeLabel.centerXAnchor, constant: 70)
+            finishDayLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            finishDayLabel.leadingAnchor.constraint(equalTo: tildeLabel.trailingAnchor, constant: 20)
         ])
         // missionTitleLabel
         NSLayoutConstraint.activate([
-            missionTitleLabel.centerYAnchor.constraint(equalTo: startDayLabel.centerYAnchor, constant: 45),
+            missionTitleLabel.topAnchor.constraint(equalTo: startDayLabel.bottomAnchor, constant: 30),
             missionTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ])
         // missionLabel
         NSLayoutConstraint.activate([
-            missionLabel.centerYAnchor.constraint(equalTo: startDayLabel.centerYAnchor, constant: 45),
+            missionLabel.topAnchor.constraint(equalTo: startDayLabel.bottomAnchor, constant: 30),
             missionLabel.leadingAnchor.constraint(equalTo: missionTitleLabel.trailingAnchor, constant: 10)
         ])
         // mainPinkImageView
         NSLayoutConstraint.activate([
-            mainPinkImageView.centerYAnchor.constraint(equalTo: missionTitleLabel.bottomAnchor, constant: 3),
-            mainPinkImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            mainPinkImageView.heightAnchor.constraint(equalToConstant: 3),
-            mainPinkImageView.widthAnchor.constraint(equalToConstant: 355)
+            mainPinkImageView.topAnchor.constraint(equalTo: missionTitleLabel.bottomAnchor, constant: 3),
+            mainPinkImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            mainPinkImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            mainPinkImageView.heightAnchor.constraint(equalToConstant: 3)
         ])
     }
     // Realm系の処理
