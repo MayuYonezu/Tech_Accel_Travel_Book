@@ -76,6 +76,7 @@ final class LookViewController: UIViewController {
         view.addSubview(missionTitleLabel)
         view.addSubview(mainPinkImageView)
     }
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         // titleLabel
@@ -173,19 +174,16 @@ final class LookViewController: UIViewController {
         tableView.reloadData()
     }
 }
-
 extension LookViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let array = Array(plansDictionary.keys).sorted()
         let key = array[section]
         return plansDictionary[key]?.count ?? 0
-        // return plans.count
     }
     // セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
         return plansDictionary.keys.count
     }
-    
     // セクションのタイトル
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let array = Array(plansDictionary.keys).sorted()
