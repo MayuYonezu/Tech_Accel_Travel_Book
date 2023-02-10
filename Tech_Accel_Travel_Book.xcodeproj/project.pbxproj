@@ -21,6 +21,11 @@
 		1C7B1265297B971300D784A3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1264297B971300D784A3 /* ListViewController.swift */; };
 		1C7B1267297B973D00D784A3 /* LookViewContoroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */; };
 		1C7B1269297B979000D784A3 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1268297B979000D784A3 /* Project.swift */; };
+		731A1936299663910097F7EB /* LookViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A1935299663910097F7EB /* LookViewControllerPreview.swift */; };
+		731A1938299663D60097F7EB /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A1937299663D60097F7EB /* PreviewProvider.swift */; };
+		731A193A299667830097F7EB /* WelcomeViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A1939299667830097F7EB /* WelcomeViewControllerPreview.swift */; };
+		731A1940299667D00097F7EB /* ListViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A193F299667D00097F7EB /* ListViewControllerPreview.swift */; };
+		731A19422996682F0097F7EB /* EditViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A19412996682F0097F7EB /* EditViewControllerPreview.swift */; };
 		73298DF42986802B00D72323 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73298DF32986802B00D72323 /* Assets.xcassets */; };
 		734D6C79297D29DD00D14F3E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734D6C78297D29DD00D14F3E /* Assets.swift */; };
 		734D6C7B297D29FA00D14F3E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 734D6C7A297D29FA00D14F3E /* Localizable.strings */; };
@@ -65,6 +70,11 @@
 		1C7B1264297B971300D784A3 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookViewContoroller.swift; sourceTree = "<group>"; };
 		1C7B1268297B979000D784A3 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		731A1935299663910097F7EB /* LookViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookViewControllerPreview.swift; sourceTree = "<group>"; };
+		731A1937299663D60097F7EB /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
+		731A1939299667830097F7EB /* WelcomeViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewControllerPreview.swift; sourceTree = "<group>"; };
+		731A193F299667D00097F7EB /* ListViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControllerPreview.swift; sourceTree = "<group>"; };
+		731A19412996682F0097F7EB /* EditViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewControllerPreview.swift; sourceTree = "<group>"; };
 		73298DF32986802B00D72323 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		734D6C78297D29DD00D14F3E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		734D6C7A297D29FA00D14F3E /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -173,6 +183,38 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		731A193B299667B00097F7EB /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				731A1935299663910097F7EB /* LookViewControllerPreview.swift */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
+		731A193C299667B80097F7EB /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				731A1939299667830097F7EB /* WelcomeViewControllerPreview.swift */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
+		731A193D299667C00097F7EB /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				731A193F299667D00097F7EB /* ListViewControllerPreview.swift */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
+		731A193E299667C50097F7EB /* Preview */ = {
+			isa = PBXGroup;
+			children = (
+				731A19412996682F0097F7EB /* EditViewControllerPreview.swift */,
+			);
+			path = Preview;
+			sourceTree = "<group>";
+		};
 		734D6C77297D29CE00D14F3E /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +223,7 @@
 				734D6C7C297D2A0300D14F3E /* Localized.swift */,
 				734D6C7E297D2A0E00D14F3E /* Instantiable.swift */,
 				73298DF32986802B00D72323 /* Assets.xcassets */,
+				731A1937299663D60097F7EB /* PreviewProvider.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -188,6 +231,7 @@
 		735B1EFB2991444800DE786D /* Welcome */ = {
 			isa = PBXGroup;
 			children = (
+				731A193C299667B80097F7EB /* Preview */,
 				1C7B1230297B8FD800D784A3 /* WelcomeViewController.swift */,
 			);
 			path = Welcome;
@@ -196,6 +240,7 @@
 		735B1EFE2991448700DE786D /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				731A193E299667C50097F7EB /* Preview */,
 				1C7B1262297B96DA00D784A3 /* EditViewContoroller.swift */,
 				735B1EFF2991449200DE786D /* EditViewController.storyboard */,
 			);
@@ -205,6 +250,7 @@
 		735B1F01299144AB00DE786D /* List */ = {
 			isa = PBXGroup;
 			children = (
+				731A193D299667C00097F7EB /* Preview */,
 				1C7B1264297B971300D784A3 /* ListViewController.swift */,
 				735B1F02299144BD00DE786D /* ListViewController.storyboard */,
 			);
@@ -214,6 +260,7 @@
 		735B1F04299144D700DE786D /* Look */ = {
 			isa = PBXGroup;
 			children = (
+				731A193B299667B00097F7EB /* Preview */,
 				1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */,
 				735B1F05299144E400DE786D /* LookViewController.storyboard */,
 			);
@@ -401,16 +448,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C7B1263297B96DA00D784A3 /* EditViewContoroller.swift in Sources */,
+				731A19422996682F0097F7EB /* EditViewControllerPreview.swift in Sources */,
 				1C7B1231297B8FD800D784A3 /* WelcomeViewController.swift in Sources */,
 				734D6C79297D29DD00D14F3E /* Assets.swift in Sources */,
 				1C7B122D297B8FD800D784A3 /* AppDelegate.swift in Sources */,
+				731A1940299667D00097F7EB /* ListViewControllerPreview.swift in Sources */,
+				731A1936299663910097F7EB /* LookViewControllerPreview.swift in Sources */,
 				734D6C7D297D2A0300D14F3E /* Localized.swift in Sources */,
 				1C7B1265297B971300D784A3 /* ListViewController.swift in Sources */,
 				1C7B122F297B8FD800D784A3 /* SceneDelegate.swift in Sources */,
 				03BCBC2A2987F11C00B3FF1A /* MainRealm.swift in Sources */,
 				734D6C7F297D2A0E00D14F3E /* Instantiable.swift in Sources */,
+				731A193A299667830097F7EB /* WelcomeViewControllerPreview.swift in Sources */,
 				1C7B1269297B979000D784A3 /* Project.swift in Sources */,
 				1C7B1267297B973D00D784A3 /* LookViewContoroller.swift in Sources */,
+				731A1938299663D60097F7EB /* PreviewProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
