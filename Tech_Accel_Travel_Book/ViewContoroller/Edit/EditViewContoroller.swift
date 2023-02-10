@@ -5,19 +5,19 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    private var pickerView = UIPickerView()
-    private var data = [L10n.day1, L10n.day2, L10n.day3, L10n.day4, L10n.day5, L10n.day6, L10n.day7]
+    var pickerView = UIPickerView()
+    var data = [L10n.day1, L10n.day2, L10n.day3, L10n.day4, L10n.day5, L10n.day6, L10n.day7]
     @IBOutlet var idLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var tapGesture: UITapGestureRecognizer!
-    private var alertController: UIAlertController!
-    private let datePicker = UIDatePicker()
-    private var saveButtonItem: UIBarButtonItem!
-    private var proID: Results<Project>?
-    private var insertID: Int = 1
-    private var project = [Project]()
-    private var plans = [Plan]()
-    private var plansDic = [String: [Plan]]()
+    var alertController: UIAlertController!
+    let datePicker = UIDatePicker()
+    var saveButtonItem: UIBarButtonItem!
+    var proID: Results<Project>?
+    var insertID: Int = 1
+    var project = [Project]()
+    var plans = [Plan]()
+    var plansDic = [String: [Plan]]()
     // missionTitleLable生成
     private var missionTitleLabel: UILabel = {
         let label = UILabel()
