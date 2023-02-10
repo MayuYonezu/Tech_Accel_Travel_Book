@@ -2,43 +2,43 @@ import UIKit
 import RealmSwift
 
 final class LookViewController: UIViewController {
-    var projectData: Project?
-    var plans = List<Plan>()
-    var plansDictionary = [String: [Plan]]()
+    private var projectData: Project?
+    private var plans = List<Plan>()
+    private var plansDictionary = [String: [Plan]]()
     @IBOutlet var tableView: UITableView!
-    var num = Int()
-    var doneButtonItem: UIBarButtonItem!
+    private var num = Int()
+    private var doneButtonItem: UIBarButtonItem!
     // titleLabel生成
     private var titleLabel: UILabel = {
-        let titleLabel = UILabel()
-        titleLabel.text = "Title"
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 30)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        return titleLabel
+        let label = UILabel()
+        label.text = "Title"
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     // startDayLabel生成
     private var startDayLabel: UILabel = {
-        let startDayLabel = UILabel()
-        startDayLabel.text = "0000/00/00"
-        startDayLabel.font = UIFont.systemFont(ofSize: 17)
-        startDayLabel.translatesAutoresizingMaskIntoConstraints = false
-        return startDayLabel
+        let label = UILabel()
+        label.text = "0000/00/00"
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     // finishLabel生成
     private var finishDayLabel: UILabel = {
-        let finishDayLabel = UILabel()
-        finishDayLabel.text = "0000/00/00"
-        finishDayLabel.font = UIFont.systemFont(ofSize: 17)
-        finishDayLabel.translatesAutoresizingMaskIntoConstraints = false
-        return finishDayLabel
+        let label = UILabel()
+        label.text = "0000/00/00"
+        label.font = UIFont.systemFont(ofSize: 17)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     // tildeLabel生成
     private var tildeLabel: UILabel = {
-        let tildeLabel = UILabel()
-        tildeLabel.text = "~"
-        tildeLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        tildeLabel.translatesAutoresizingMaskIntoConstraints = false
-        return tildeLabel
+        let label = UILabel()
+        label.text = "~"
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     // missionTitleLable生成
     private var missionTitleLabel: UILabel = {
