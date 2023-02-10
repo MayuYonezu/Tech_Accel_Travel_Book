@@ -117,7 +117,7 @@ final class LookViewController: UIViewController {
         ])
     }
     // Realm系の処理
-    func realm_process() {
+    private func realm_process() {
         // 文字列で条件文を書いてデータを取得
         guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
             return
@@ -133,7 +133,7 @@ final class LookViewController: UIViewController {
         tableView.reloadData()
     }
     // NavigationBar装飾
-    func navigationDesign() {
+    private func navigationDesign() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(asset: Asset.mainPink)
@@ -145,7 +145,7 @@ final class LookViewController: UIViewController {
     @IBAction func done() {
         self.navigationController?.popToRootViewController(animated: true)
     }
-    func getPlanData() {
+    private func getPlanData() {
         // 文字列で条件文を書いてデータを取得
         guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
             return
@@ -155,7 +155,7 @@ final class LookViewController: UIViewController {
             tableView.reloadData()
         }
     }
-    func getPlanDicData() {
+    private func getPlanDicData() {
         // 全部の値が取得されてしまう
         guard let plans = MainRealm.shared.realm?.objects(Plan.self).reversed() else {
             return
@@ -179,13 +179,13 @@ extension LookViewController: UITableViewDelegate, UITableViewDataSource {
         let array = Array(plansDictionary.keys).sorted()
         let key = array[section]
         return plansDictionary[key]?.count ?? 0
-       // return plans.count
-      }
+        // return plans.count
+    }
     // セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
         return plansDictionary.keys.count
     }
-
+    
     // セクションのタイトル
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let array = Array(plansDictionary.keys).sorted()
@@ -200,5 +200,5 @@ extension LookViewController: UITableViewDelegate, UITableViewDataSource {
         (cell.viewWithTag(2) as? UILabel)!.text = plann?.finishTime
         (cell.viewWithTag(3) as? UILabel)!.text = plann?.planText
         return cell
-      }
+    }
 }
