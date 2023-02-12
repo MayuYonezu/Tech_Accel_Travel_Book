@@ -26,7 +26,7 @@ final class WelcomeViewController: UIViewController {
     // リスト一覧ボタン
     private let projectListButton: UIButton = {
         let button = UIButton()
-        button.setTitle(L10n.newProject, for: .normal)
+        button.setTitle(L10n.projectList, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(UIColor(asset: Asset.mainPink), for: .normal)
         return button
@@ -82,5 +82,13 @@ final class WelcomeViewController: UIViewController {
             projectListButton.topAnchor.constraint(equalTo: newProjectButton.bottomAnchor, constant: 10),
             projectListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
         ])
+
+        // AddTarget
+        projectListButton.addTarget(self, action: #selector(toLookVC), for: .touchUpInside)
+    }
+
+    @objc func toLookVC() {
+        let lookVC = LookViewController()
+        self.navigationController?.pushViewController(lookVC, animated: true)
     }
 }
