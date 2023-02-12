@@ -5,29 +5,141 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    var pickerView = UIPickerView()
-    var data = [L10n.day1, L10n.day2, L10n.day3, L10n.day4, L10n.day5, L10n.day6, L10n.day7]
-    @IBOutlet var idLabel: UILabel!
-    @IBOutlet weak var titleLabel: UITextField!
-    @IBOutlet weak var startDay: UITextField!
-    @IBOutlet weak var finishDay: UITextField!
+    private var pickerView = UIPickerView()
+    private var data = [L10n.day1, L10n.day2, L10n.day3, L10n.day4, L10n.day5, L10n.day6, L10n.day7]
     @IBOutlet var tableView: UITableView!
     @IBOutlet var detailTextFiled: UITextField!
-    @IBOutlet var startTimeTextField: UITextField!
-    @IBOutlet var finishTimeTextField: UITextField!
-    @IBOutlet var daySectionTextField: UITextField!
     @IBOutlet var tapGesture: UITapGestureRecognizer!
-    var alertController: UIAlertController!
-    let datePicker = UIDatePicker()
-    @IBOutlet var missionLabel: UILabel!
-    var saveButtonItem: UIBarButtonItem!
-    var proID: Results<Project>?
-    var insertID: Int = 1
-    var project = [Project]()
-    var plans = [Plan]()
-    var plansDic = [String: [Plan]]()
+    private var alertController: UIAlertController!
+    private let datePicker = UIDatePicker()
+    private var saveButtonItem: UIBarButtonItem!
+    private var proID: Results<Project>?
+    private var insertID: Int = 1
+    private var project = [Project]()
+    private var plans = [Plan]()
+    private var plansDic = [String: [Plan]]()
+    private var selectProjectId: String = "0"
+
+    // missionTitleLable生成
+        private var missionTitleLabel: UILabel = {
+            let label = UILabel()
+            label.text = "Mission"
+            label.font = UIFont.boldSystemFont(ofSize: 17)
+            label.textColor = UIColor(asset: Asset.mainPink)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        // missionLabel生成
+        private var missionLabel: UILabel = {
+            let label = UILabel()
+            label.text = "aaa"
+            label.font = UIFont.systemFont(ofSize: 17)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        private var pinkLineView1: UIImageView = {
+            let imageView = UIImageView()
+            imageView.backgroundColor = UIColor(asset: Asset.mainPink)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            return imageView
+        }()
+        private var pinkLineView2: UIImageView = {
+            let imageView = UIImageView()
+            imageView.backgroundColor = UIColor(asset: Asset.mainPink)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            return imageView
+        }()
+        private var missionUpdateButton: UIButton = {
+            let button = UIButton()
+            button.setImage(UIImage(asset: Asset.missionKousin), for: .normal)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.contentMode = .scaleAspectFit
+            return button
+        }()
+        private var titleTextField: UITextField = {
+            let textField = UITextField()
+            textField.borderStyle = .roundedRect
+            textField.placeholder = L10n.enterTitle
+            textField.translatesAutoresizingMaskIntoConstraints = false
+            return textField
+        }()
+        private var startDayTextField: UITextField = {
+            let textFiled = UITextField()
+            textFiled.borderStyle = .roundedRect
+            textFiled.placeholder = L10n.departureDate
+            textFiled.translatesAutoresizingMaskIntoConstraints = false
+            return textFiled
+        }()
+        private var finishDayTextField: UITextField = {
+            let textFiled = UITextField()
+            textFiled.borderStyle = .roundedRect
+            textFiled.placeholder = L10n.lastDate
+            textFiled.translatesAutoresizingMaskIntoConstraints = false
+            return textFiled
+        }()
+        // tildeLabel生成
+        private var tildeLabel: UILabel = {
+            let label = UILabel()
+            label.text = "~"
+            label.font = UIFont.boldSystemFont(ofSize: 18)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            return label
+        }()
+        private var addScheduleButton: UIButton = {
+            let button = UIButton()
+            button.setTitle(L10n.addSchedule, for: .normal)
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+            button.setTitleColor(UIColor(asset: Asset.mainPink), for: .normal)
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.contentMode = .scaleAspectFit
+            return button
+        }()
+        private var detailScheduleTextField: UITextField = {
+            let textFiled = UITextField()
+            textFiled.borderStyle = .roundedRect
+            textFiled.placeholder = L10n.appointmentDetails
+            textFiled.translatesAutoresizingMaskIntoConstraints = false
+            return textFiled
+        }()
+        private var selectDayTextField: UITextField = {
+            let textFiled = UITextField()
+            textFiled.borderStyle = .roundedRect
+            textFiled.placeholder = L10n.dateSelect
+            textFiled.translatesAutoresizingMaskIntoConstraints = false
+            return textFiled
+        }()
+        private var startTimeTextField: UITextField = {
+            let textFiled = UITextField()
+            textFiled.borderStyle = .roundedRect
+            textFiled.placeholder = L10n.timeToStart
+            textFiled.translatesAutoresizingMaskIntoConstraints = false
+            return textFiled
+        }()
+        private var finishTimeTextField: UITextField = {
+            let textFiled = UITextField()
+            textFiled.borderStyle = .roundedRect
+            textFiled.placeholder = L10n.timeToFinish
+            textFiled.translatesAutoresizingMaskIntoConstraints = false
+            return textFiled
+        }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        view.addSubview(missionLabel)
+        view.addSubview(missionTitleLabel)
+        view.addSubview(pinkLineView1)
+        view.addSubview(pinkLineView2)
+        view.addSubview(missionUpdateButton)
+        view.addSubview(titleTextField)
+        view.addSubview(startDayTextField)
+        view.addSubview(finishDayTextField)
+        view.addSubview(tildeLabel)
+        view.addSubview(addScheduleButton)
+        view.addSubview(detailScheduleTextField)
+        view.addSubview(selectDayTextField)
+        view.addSubview(startTimeTextField)
+        view.addSubview(finishTimeTextField)
         tableView.delegate = self
         tableView.dataSource = self
         tapGesture.cancelsTouchesInView = false
@@ -44,9 +156,91 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         tableView.allowsSelectionDuringEditing = true
         setUpPicker()
     }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let screenSizeWidth = UIScreen.main.bounds.width - 40
+        // missionTitleLabel
+        NSLayoutConstraint.activate([
+            missionTitleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+            missionTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+        ])
+        // missionLabel
+        NSLayoutConstraint.activate([
+            missionLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 80),
+            missionLabel.leadingAnchor.constraint(equalTo: missionTitleLabel.trailingAnchor, constant: 10)
+        ])
+        // pinkLineView1
+        NSLayoutConstraint.activate([
+            pinkLineView1.topAnchor.constraint(equalTo: missionTitleLabel.bottomAnchor, constant: 2),
+            pinkLineView1.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            pinkLineView1.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            pinkLineView1.heightAnchor.constraint(equalToConstant: 3)
+        ])
+        // missionUpdateButton
+        NSLayoutConstraint.activate([
+            missionUpdateButton.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 80),
+            missionUpdateButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            missionUpdateButton.heightAnchor.constraint(equalToConstant: 16),
+            missionUpdateButton.widthAnchor.constraint(equalToConstant: 15)
+        ])
+        // titleTextField
+        NSLayoutConstraint.activate([
+            titleTextField.topAnchor.constraint(equalTo: pinkLineView1.bottomAnchor, constant: 10),
+            titleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+        // tildeLabel
+        NSLayoutConstraint.activate([
+            tildeLabel.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
+            tildeLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
+        ])
+        NSLayoutConstraint.activate([
+            startDayTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
+            startDayTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            startDayTextField.trailingAnchor.constraint(equalTo: tildeLabel.leadingAnchor, constant: -20)
+        ])
+        NSLayoutConstraint.activate([
+            finishDayTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 10),
+            finishDayTextField.leadingAnchor.constraint(equalTo: tildeLabel.trailingAnchor, constant: 20),
+            finishDayTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+        NSLayoutConstraint.activate([
+            addScheduleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
+            addScheduleButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            addScheduleButton.heightAnchor.constraint(equalToConstant: 35)
+        ])
+        NSLayoutConstraint.activate([
+            detailScheduleTextField.bottomAnchor.constraint(equalTo: addScheduleButton.topAnchor, constant: -10),
+            detailScheduleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            detailScheduleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+        NSLayoutConstraint.activate([
+            selectDayTextField.bottomAnchor.constraint(equalTo: detailScheduleTextField.topAnchor, constant: -10),
+            selectDayTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            selectDayTextField.widthAnchor.constraint(equalToConstant: screenSizeWidth * 0.3)
+        ])
+        NSLayoutConstraint.activate([
+            startTimeTextField.bottomAnchor.constraint(equalTo: detailScheduleTextField.topAnchor, constant: -10),
+            startTimeTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+            startTimeTextField.widthAnchor.constraint(equalToConstant: screenSizeWidth * 0.3)
+        ])
+        NSLayoutConstraint.activate([
+            finishTimeTextField.bottomAnchor.constraint(equalTo: detailScheduleTextField.topAnchor, constant: -10),
+            finishTimeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            finishTimeTextField.widthAnchor.constraint(equalToConstant: screenSizeWidth * 0.3)
+        ])
+        // pinkLineView2
+        NSLayoutConstraint.activate([
+            pinkLineView2.bottomAnchor.constraint(equalTo: startTimeTextField.topAnchor, constant: -10),
+            pinkLineView2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            pinkLineView2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            pinkLineView2.heightAnchor.constraint(equalToConstant: 3)
+        ])
+    }
     func setUpPicker() {
         pickerView.delegate = self
-        daySectionTextField.inputView = pickerView
+        selectDayTextField.inputView = pickerView
         // toolbar
         let toolbar = UIToolbar()
         toolbar.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44)
@@ -54,13 +248,13 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
                                              target: self,
                                              action: #selector(EditViewController.donePicker))
         toolbar.setItems([doneButtonItem], animated: true)
-        daySectionTextField.inputAccessoryView = toolbar
+        selectDayTextField.inputAccessoryView = toolbar
     }
     @objc func donePicker() {
-        daySectionTextField.endEditing(true)
+        selectDayTextField.endEditing(true)
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        daySectionTextField.endEditing(true)
+        selectDayTextField.endEditing(true)
     }
     @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
         view.endEditing(true)
@@ -69,7 +263,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         guard let projectId = MainRealm.shared.realm?.objects(Project.self) else {
             return
         }
-        idLabel.text = String(projectId.count)
+        selectProjectId = String(projectId.count)
     }
     let startDayPicker: UIDatePicker = {
         let dayPicker = UIDatePicker()
@@ -112,12 +306,12 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
     @objc func startDays() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
-        startDay.text = "\(formatter.string(from: startDayPicker.date))"
+        startDayTextField.text = "\(formatter.string(from: startDayPicker.date))"
     }
     @objc func finishDays() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy/MM/dd"
-        finishDay.text = "\(formatter.string(from: finishDayPicker.date))"
+        finishDayTextField.text = "\(formatter.string(from: finishDayPicker.date))"
     }
     @objc func startTime() {
         let formatter = DateFormatter()
@@ -139,18 +333,18 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         present(alertController, animated: true)
     }
     func setUpDesign() {
-        titleLabel.placeholder = L10n.enterTitle
-        startDay.placeholder = L10n.departureDate
-        finishDay.placeholder = L10n.lastDate
+        titleTextField.placeholder = L10n.enterTitle
+        startDayTextField.placeholder = L10n.departureDate
+        finishDayTextField.placeholder = L10n.lastDate
         startTimeTextField.placeholder = L10n.timeToStart
         finishTimeTextField.placeholder = L10n.timeToFinish
-        daySectionTextField.placeholder = L10n.dateSelect
+        selectDayTextField.placeholder = L10n.dateSelect
         detailTextFiled.placeholder = L10n.appointmentDetails
         mission_random()
-        startDay.delegate = self
-        startDay.inputView = startDayPicker
-        finishDay.delegate = self
-        finishDay.inputView = finishDayPicker
+        startDayTextField.delegate = self
+        startDayTextField.inputView = startDayPicker
+        finishDayTextField.delegate = self
+        finishDayTextField.inputView = finishDayPicker
         startTimeTextField.delegate = self
         startTimeTextField.inputView = startTimePicker
         finishTimeTextField.delegate = self
@@ -166,10 +360,10 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     @objc func saveButtonPressed(_ sender: UIBarButtonItem) {
         guard
-            idLabel.text != nil,
-            titleLabel.text != nil,
-            startDay.text != nil,
-            finishDay.text != nil,
+            selectProjectId != nil,
+            titleTextField.text != nil,
+            startDayTextField.text != nil,
+            finishDayTextField.text != nil,
             missionLabel.text != nil else {return}
         print("プロジェクト保存")
         alert(title: L10n.success,
@@ -179,13 +373,11 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         }
     }
     func saveProject() {
-        guard let idText = idLabel.text,
-              let titleText = titleLabel.text,
-              let startDayText = startDay.text,
-              let finishDayText = finishDay.text,
+        guard let titleText = titleTextField.text,
+              let startDayText = startDayTextField.text,
+              let finishDayText = finishDayTextField.text,
               let missionText = missionLabel.text else { return }
         let project = Project()
-        project.id = idText
         project.title = titleText
         project.startDays = startDayText
         project.finishDays = finishDayText
@@ -193,12 +385,12 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         guard let realm = MainRealm.shared.realm else {
             return
         }
-        
+
         try? realm.write({
             realm.add(project) // レコードを追加
         })
         print(project)
-        
+
         try? realm.write({
             for plan in plans {
                 project.plans.append(plan)
@@ -210,12 +402,12 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
             detailTextFiled.text != nil,
             startTimeTextField.text != nil,
             finishTimeTextField.text != nil,
-            daySectionTextField.text != nil else {return}
+            selectDayTextField.text != nil else {return}
         savePlan()
         detailTextFiled.text = ""
         startTimeTextField.text = ""
         finishTimeTextField.text = ""
-        daySectionTextField.text = ""
+        selectDayTextField.text = ""
         tableView.reloadData()
         print("保存")
     }
@@ -223,7 +415,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         guard let planText = detailTextFiled.text,
               let startText = startTimeTextField.text,
               let finishText = finishTimeTextField.text,
-              let dayText = daySectionTextField.text
+              let dayText = selectDayTextField.text
         else { return }
         let plan = Plan()
         plan.planText = planText
@@ -310,7 +502,7 @@ extension EditViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         return data[row]
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        daySectionTextField.text = data[row]
+        selectDayTextField.text = data[row]
         print(data[row])
         print(plansDic)
     }
