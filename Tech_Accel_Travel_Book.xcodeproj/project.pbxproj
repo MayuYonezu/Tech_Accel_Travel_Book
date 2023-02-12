@@ -26,6 +26,8 @@
 		731A193A299667830097F7EB /* WelcomeViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A1939299667830097F7EB /* WelcomeViewControllerPreview.swift */; };
 		731A1940299667D00097F7EB /* ListViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A193F299667D00097F7EB /* ListViewControllerPreview.swift */; };
 		731A19422996682F0097F7EB /* EditViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A19412996682F0097F7EB /* EditViewControllerPreview.swift */; };
+		731A19452998EFD10097F7EB /* LookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A19442998EFD10097F7EB /* LookTableViewCell.swift */; };
+		731A19472998F2A10097F7EB /* LookTableViewCellPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A19462998F2A10097F7EB /* LookTableViewCellPreview.swift */; };
 		73298DF42986802B00D72323 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73298DF32986802B00D72323 /* Assets.xcassets */; };
 		734D6C79297D29DD00D14F3E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734D6C78297D29DD00D14F3E /* Assets.swift */; };
 		734D6C7B297D29FA00D14F3E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 734D6C7A297D29FA00D14F3E /* Localizable.strings */; };
@@ -75,6 +77,8 @@
 		731A1939299667830097F7EB /* WelcomeViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewControllerPreview.swift; sourceTree = "<group>"; };
 		731A193F299667D00097F7EB /* ListViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewControllerPreview.swift; sourceTree = "<group>"; };
 		731A19412996682F0097F7EB /* EditViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewControllerPreview.swift; sourceTree = "<group>"; };
+		731A19442998EFD10097F7EB /* LookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookTableViewCell.swift; sourceTree = "<group>"; };
+		731A19462998F2A10097F7EB /* LookTableViewCellPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookTableViewCellPreview.swift; sourceTree = "<group>"; };
 		73298DF32986802B00D72323 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		734D6C78297D29DD00D14F3E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		734D6C7A297D29FA00D14F3E /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				731A1935299663910097F7EB /* LookViewControllerPreview.swift */,
+				731A19462998F2A10097F7EB /* LookTableViewCellPreview.swift */,
 			);
 			path = Preview;
 			sourceTree = "<group>";
@@ -213,6 +218,14 @@
 				731A19412996682F0097F7EB /* EditViewControllerPreview.swift */,
 			);
 			path = Preview;
+			sourceTree = "<group>";
+		};
+		731A19432998EFBE0097F7EB /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				731A19442998EFD10097F7EB /* LookTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		734D6C77297D29CE00D14F3E /* Common */ = {
@@ -260,6 +273,7 @@
 		735B1F04299144D700DE786D /* Look */ = {
 			isa = PBXGroup;
 			children = (
+				731A19432998EFBE0097F7EB /* Cell */,
 				731A193B299667B00097F7EB /* Preview */,
 				1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */,
 				735B1F05299144E400DE786D /* LookViewController.storyboard */,
@@ -450,8 +464,10 @@
 				1C7B1263297B96DA00D784A3 /* EditViewContoroller.swift in Sources */,
 				731A19422996682F0097F7EB /* EditViewControllerPreview.swift in Sources */,
 				1C7B1231297B8FD800D784A3 /* WelcomeViewController.swift in Sources */,
+				731A19452998EFD10097F7EB /* LookTableViewCell.swift in Sources */,
 				734D6C79297D29DD00D14F3E /* Assets.swift in Sources */,
 				1C7B122D297B8FD800D784A3 /* AppDelegate.swift in Sources */,
+				731A19472998F2A10097F7EB /* LookTableViewCellPreview.swift in Sources */,
 				731A1940299667D00097F7EB /* ListViewControllerPreview.swift in Sources */,
 				731A1936299663910097F7EB /* LookViewControllerPreview.swift in Sources */,
 				734D6C7D297D2A0300D14F3E /* Localized.swift in Sources */,
