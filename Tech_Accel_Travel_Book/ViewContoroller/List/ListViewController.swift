@@ -9,14 +9,24 @@ import UIKit
 import RealmSwift
 
 final class ListViewController: UIViewController {
-    var projects = [Project]()
+    let projects = [Project]()
     //　受け渡したい値
     var num = Int()
     var dataid = Int()
-    @IBOutlet var tableView: UITableView!
+
+    private lazy var tableView: UITableView = {
+        let table = UITableView()
+        table.register(ListTableViewCell.self, forCellReuseIdentifier: ListTableViewCell.identifier)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.backgroundColor = .white
+        table.dataSource = self
+        table.delegate = self
+        return table
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(tableView)
         self.tableView.reloadData()
         navigationDesign()
         setUpViews()
@@ -27,16 +37,26 @@ final class ListViewController: UIViewController {
         super.viewWillAppear(animated)
         getProjectData()
     }
-    func setUpViews() {
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+        ])
+    }
+    private func setUpViews() {
         tableView.delegate = self
         tableView.dataSource = self
     }
     // Realmからデータを取得してテーブルビューを再リロードするメソッド
-    func getProjectData() {
+    private func getProjectData() {
         tableView.reloadData() // テーブルビューをリロード
     }
     // NavigationBar装飾
-    func navigationDesign() {
+    private func navigationDesign() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(asset: Asset.mainPink)
@@ -51,16 +71,21 @@ final class ListViewController: UIViewController {
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     // TableViewが何個のCellを表示するのか設定するデリゲートメソッド
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        projects.count
+//        projects.count
+        10
     }
 // Cellの中身を設定するデリゲートメソッド
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath)
-        guard let projectLabel = cell.viewWithTag(1) as? UILabel
-        else { return cell }
-        let project = projects[indexPath.row]
-        dataid = projects.count - indexPath.row - 1
-        projectLabel.text = project.title
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier, for: indexPath) as? ListTableViewCell else {
+            fatalError()
+        }
+        cell.setUp(titleText: "titleText")
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath)
+//        guard let projectLabel = cell.viewWithTag(1) as? UILabel
+//        else { return cell }
+//        let project = projects[indexPath.row]
+//        dataid = projects.count - indexPath.row - 1
+//        projectLabel.text = project.title
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
