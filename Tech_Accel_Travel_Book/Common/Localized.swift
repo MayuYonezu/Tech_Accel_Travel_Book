@@ -32,6 +32,8 @@ internal enum L10n {
   internal static let day7 = L10n.tr("Localizable", "day7", fallback: "Day7")
   /// 出発日
   internal static let departureDate = L10n.tr("Localizable", "departure_date", fallback: "出発日")
+  /// 完了
+  internal static let done = L10n.tr("Localizable", "done", fallback: "完了")
   /// タイトルを入力
   internal static let enterTitle = L10n.tr("Localizable", "enter_title", fallback: "タイトルを入力")
   /// home

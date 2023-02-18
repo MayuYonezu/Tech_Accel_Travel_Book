@@ -76,7 +76,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
     // prepare for segueをoverrideする
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let nextVC = segue.destination as? LookViewController
-        nextVC!.num = dataid
+//        nextVC!.num = dataid
         print("完了A")
     }
 }
