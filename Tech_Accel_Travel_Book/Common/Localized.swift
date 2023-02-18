@@ -10,6 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// 予定を追加
+  internal static let addSchedule = L10n.tr("Localizable", "add_schedule", fallback: "予定を追加")
   /// 予定の詳細
   internal static let appointmentDetails = L10n.tr("Localizable", "appointment_details", fallback: "予定の詳細")
   /// 日程選択
