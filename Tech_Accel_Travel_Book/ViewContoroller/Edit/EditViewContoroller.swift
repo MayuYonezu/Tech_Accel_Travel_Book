@@ -13,13 +13,13 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
     private var alertController: UIAlertController!
     private let datePicker = UIDatePicker()
     private var saveButtonItem: UIBarButtonItem!
-    private var proID: Results<Project>? = nil
+    private var proID: Results<Project>?
     private var insertID: Int = 1
-    private let project = [Project]()
+    private let projects = [Project]()
     private var plans = [Plan]()
     private var plansDic = [String: [Plan]]()
     private var selectProjectId: String = "0"
-    
+
     // missionTitleLable生成
     private let missionLabel: UILabel = {
         let label = UILabel()
@@ -122,7 +122,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         textFiled.translatesAutoresizingMaskIntoConstraints = false
         return textFiled
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -156,7 +156,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         tableView.allowsSelectionDuringEditing = true
         setUpPicker()
     }
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let screenSizeWidth = UIScreen.main.bounds.width - 40
@@ -167,7 +167,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         ])
         // selectMissionLabel
         NSLayoutConstraint.activate([
-            selectMissionLabel.centerYAnchor.constraint(equalTo: view.topAnchor, constant: 80),
+            selectMissionLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 82),
             selectMissionLabel.leadingAnchor.constraint(equalTo: missionLabel.trailingAnchor, constant: 10)
         ])
         // pinkLineView1
@@ -386,12 +386,12 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         guard let realm = MainRealm.shared.realm else {
             return
         }
-        
+
         try? realm.write({
             realm.add(project) // レコードを追加
         })
         print(project)
-        
+
         try? realm.write({
             for plan in plans {
                 project.plans.append(plan)
@@ -428,7 +428,6 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         getPlanDicData()
     }
     private func getPlanData() {
-        
         plans = []
         tableView.reloadData() // テーブルビューをリロード
     }
