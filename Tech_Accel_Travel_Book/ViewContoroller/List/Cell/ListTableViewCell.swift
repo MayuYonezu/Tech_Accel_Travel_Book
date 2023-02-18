@@ -23,7 +23,8 @@ final class ListTableViewCell: UITableViewCell {
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 7),
             titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
-            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -7)
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -7),
+            titleLabel.heightAnchor.constraint(equalToConstant: 30)
         ])
 
     }

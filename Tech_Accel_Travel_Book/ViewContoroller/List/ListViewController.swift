@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 
 final class ListViewController: UIViewController {
-    let projects = [Project]()
+    private let projects = [Project]()
     //　受け渡したい値
     var num = Int()
     var dataid = Int()
@@ -29,7 +29,6 @@ final class ListViewController: UIViewController {
         view.addSubview(tableView)
         self.tableView.reloadData()
         navigationDesign()
-        setUpViews()
         getProjectData()
 
     }
@@ -46,10 +45,6 @@ final class ListViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
-    }
-    private func setUpViews() {
-        tableView.delegate = self
-        tableView.dataSource = self
     }
     // Realmからデータを取得してテーブルビューを再リロードするメソッド
     private func getProjectData() {
