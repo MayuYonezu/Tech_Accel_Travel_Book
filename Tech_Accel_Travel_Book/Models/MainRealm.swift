@@ -5,12 +5,11 @@
 //  Created by Mayu Yonezu on 2023/01/30.
 //
 
-// Realmに保存された情報を取得するため作成
 import Foundation
 import RealmSwift
 
-class MainRealm {
-    // シングルトンパターン
+// 共通のRealmに対してどこからでもアクセスできるようにシングルトンクラスを作成
+final class MainRealm {
     static let shared = MainRealm()
     let realm: Realm?
 

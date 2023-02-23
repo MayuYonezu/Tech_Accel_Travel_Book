@@ -9,10 +9,8 @@ import UIKit
 import RealmSwift
 
 final class ListViewController: UIViewController {
-    private let projects = [Project]()
-    //　受け渡したい値
-    var num = Int()
-    var dataid = Int()
+
+    private let presenter: ListPresenterInput
 
     private lazy var tableView: UITableView = {
         let table = UITableView()
@@ -24,17 +22,28 @@ final class ListViewController: UIViewController {
         return table
     }()
 
+    init(presenter: ListPresenterInput) {
+        self.presenter = presenter
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init(coder: NSCoder) {
+        fatalError()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(tableView)
-        self.tableView.reloadData()
-        navigationDesign()
-        getProjectData()
 
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        getProjectData()
+        // Navigation Design
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(asset: Asset.mainPink)
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText]
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.standardAppearance = appearance
+        navigationItem.scrollEdgeAppearance = appearance
+        navigationItem.compactAppearance = appearance
     }
 
     override func viewDidLayoutSubviews() {
@@ -46,57 +55,36 @@ final class ListViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
-    // Realmからデータを取得してテーブルビューを再リロードするメソッド
-    private func getProjectData() {
-        tableView.reloadData() // テーブルビューをリロード
-    }
-    // NavigationBar装飾
-    private func navigationDesign() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(asset: Asset.mainPink)
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText]
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.compactAppearance = appearance
-    }
 }
 
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
-    // TableViewが何個のCellを表示するのか設定するデリゲートメソッド
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        projects.count
-        10
+        self.presenter.numberOfProject
     }
-// Cellの中身を設定するデリゲートメソッド
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier, for: indexPath) as? ListTableViewCell else {
             fatalError()
         }
-        cell.setUp(titleText: "titleText")
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "ProjectCell", for: indexPath)
-//        guard let projectLabel = cell.viewWithTag(1) as? UILabel
-//        else { return cell }
-//        let project = projects[indexPath.row]
-//        dataid = projects.count - indexPath.row - 1
-//        projectLabel.text = project.title
+        let project = self.presenter.returnProject(indexPath: indexPath)
+        cell.setUp(titleText: project.title)
         return cell
     }
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-// タップされたセルの行番号を出力
-        print("\(indexPath.row)番目の行が選択されました。")
-        dataid = projects.count - indexPath.row - 1
-        print("dataidは\(dataid)")
-        // セルの選択を解除
         tableView.deselectRow(at: indexPath, animated: true)
-        self.performSegue(withIdentifier: "toLookViewController", sender: nil)
-        print("完了B")
+        self.presenter.didSelectRowAt(indexPath: indexPath)
     }
-    // prepare for segueをoverrideする
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let nextVC = segue.destination as? LookViewController
-//        nextVC!.num = dataid
-        print("完了A")
+}
+extension ListViewController: ListPresenterOutput {
+
+    func transition(project: Project) {
+        let lookVC = LookViewController()
+        self.navigationController?.pushViewController(lookVC, animated: true)
+    }
+
+    func fetchedData() {
+        self.tableView.reloadData()
     }
 }

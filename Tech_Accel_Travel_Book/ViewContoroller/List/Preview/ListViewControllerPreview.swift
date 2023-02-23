@@ -4,7 +4,7 @@ import SwiftUI
 enum ListViewControllerPreview: PreviewProvider {
     static let previews = PreviewGroup.viewController {
         Preview("ListViewController") {
-            let viewController = ListViewController()
+            let viewController = ListViewController(presenter: ListPresenter())
             return viewController
         }
     }
