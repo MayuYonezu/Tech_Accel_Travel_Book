@@ -20,6 +20,8 @@ final class ListPresenter {
 
     init(view: ListPresenterOutput) {
         self.view = view
+
+        testSave()
     }
 }
 
@@ -42,7 +44,41 @@ extension ListPresenter: ListPresenterInput {
             return
         }
         self.projects = realm.objects(Project.self).reversed()
-        print("projects:\(projects)")
         self.view?.fetchData()
+    }
+
+    // ここは保存のためのテスト用の記述です。
+    private func testSave() {
+        guard let realm = MainRealm.shared.realm else {
+            return
+        }
+        var projectId: Results<Project>?
+        let project: Results<Project>? = realm.objects(Project.self)
+        projectId = project
+
+        let mockPlan: Plan = {
+            let plan = Plan()
+            plan.planText = "planText"
+            plan.startTime = "startText"
+            plan.finishTime = "finishText"
+            plan.daySection = "dayText"
+            return plan
+        }()
+
+        let mockProject: Project = {
+            let project = Project()
+            project.id = "idText\(String(projectId!.count + 4))"
+            project.title = "titleText"
+            project.startDays = "startDayText"
+            project.finishDays = "finishDayText"
+            project.mission = "missionText"
+            return project
+        }()
+
+        mockProject.plans.append(mockPlan)
+
+        try? realm.write {
+            realm.add(mockProject)
+        }
     }
 }

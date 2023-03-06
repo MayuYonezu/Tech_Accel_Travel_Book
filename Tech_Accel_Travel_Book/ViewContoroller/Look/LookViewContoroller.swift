@@ -250,6 +250,8 @@ extension LookViewController: UITableViewDelegate, UITableViewDataSource {
         }
 //        let key = plansDictionary.keys.sorted()[indexPath.section]
 //        let plan = plansDictionary[key]?[indexPath.row]
+
+        // MEMO: - ここだけちゃんと表示させる！
         cell.setUp(startedTime: "start", finishTime: "finishTime", planText: "planText")
         return cell
     }
