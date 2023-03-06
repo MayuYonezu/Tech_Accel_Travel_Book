@@ -2,12 +2,8 @@ import UIKit
 import RealmSwift
 
 final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UIPickerViewDelegate {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
     private let pickerView = UIPickerView()
     private let data = [L10n.day1, L10n.day2, L10n.day3, L10n.day4, L10n.day5, L10n.day6, L10n.day7]
-    @IBOutlet var tableView: UITableView!
     @IBOutlet var detailTextFiled: UITextField!
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     private var alertController: UIAlertController!
@@ -122,6 +118,18 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         textFiled.translatesAutoresizingMaskIntoConstraints = false
         return textFiled
     }()
+    // tableView
+    private lazy var scheduleTableView: UITableView = {
+        let table = UITableView()
+        table.register(EditTableViewCell.self, forCellReuseIdentifier: EditTableViewCell.identifier)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.backgroundColor = .white
+        table.dataSource = self
+        table.delegate = self
+        table.isEditing = true
+        table.allowsSelectionDuringEditing = true
+        return table
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,8 +148,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         view.addSubview(selectDayTextField)
         view.addSubview(startTimeTextField)
         view.addSubview(finishTimeTextField)
-        tableView.delegate = self
-        tableView.dataSource = self
+        view.addSubview(scheduleTableView)
         tapGesture.cancelsTouchesInView = false
         getProjectId()
         setUpDesign()
@@ -152,14 +159,13 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
                                          target: self,
                                          action: #selector(saveButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = saveButtonItem
-        tableView.isEditing = true
-        tableView.allowsSelectionDuringEditing = true
         setUpPicker()
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let screenSizeWidth = UIScreen.main.bounds.width - 40
+        let screenSizeHeight = UIScreen.main.bounds.height
         // missionTitleLabel
         NSLayoutConstraint.activate([
             missionLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
@@ -167,7 +173,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         ])
         // selectMissionLabel
         NSLayoutConstraint.activate([
-            selectMissionLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 82),
+            selectMissionLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
             selectMissionLabel.leadingAnchor.constraint(equalTo: missionLabel.trailingAnchor, constant: 10)
         ])
         // pinkLineView1
@@ -206,37 +212,44 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
             finishDayTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
         NSLayoutConstraint.activate([
-            addScheduleButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50),
-            addScheduleButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            addScheduleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            addScheduleButton.heightAnchor.constraint(equalToConstant: 35)
+            scheduleTableView.topAnchor.constraint(equalTo: tildeLabel.bottomAnchor, constant: 20),
+            scheduleTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            scheduleTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            scheduleTableView.heightAnchor.constraint(equalToConstant: screenSizeHeight * 0.45)
+        ])
+        // pinkLineView2
+        NSLayoutConstraint.activate([
+            pinkLineView2.topAnchor.constraint(equalTo: scheduleTableView.bottomAnchor, constant: 20),
+            pinkLineView2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            pinkLineView2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            pinkLineView2.heightAnchor.constraint(equalToConstant: 3)
         ])
         NSLayoutConstraint.activate([
-            detailScheduleTextField.bottomAnchor.constraint(equalTo: addScheduleButton.topAnchor, constant: -10),
-            detailScheduleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            detailScheduleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-        ])
-        NSLayoutConstraint.activate([
-            selectDayTextField.bottomAnchor.constraint(equalTo: detailScheduleTextField.topAnchor, constant: -10),
+            selectDayTextField.topAnchor.constraint(equalTo: pinkLineView2.bottomAnchor, constant: 10),
             selectDayTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             selectDayTextField.widthAnchor.constraint(equalToConstant: screenSizeWidth * 0.3)
         ])
         NSLayoutConstraint.activate([
-            startTimeTextField.bottomAnchor.constraint(equalTo: detailScheduleTextField.topAnchor, constant: -10),
-            startTimeTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            startTimeTextField.widthAnchor.constraint(equalToConstant: screenSizeWidth * 0.3)
-        ])
-        NSLayoutConstraint.activate([
-            finishTimeTextField.bottomAnchor.constraint(equalTo: detailScheduleTextField.topAnchor, constant: -10),
+            finishTimeTextField.topAnchor.constraint(equalTo: pinkLineView2.bottomAnchor, constant: 10),
             finishTimeTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             finishTimeTextField.widthAnchor.constraint(equalToConstant: screenSizeWidth * 0.3)
         ])
-        // pinkLineView2
         NSLayoutConstraint.activate([
-            pinkLineView2.bottomAnchor.constraint(equalTo: startTimeTextField.topAnchor, constant: -10),
-            pinkLineView2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            pinkLineView2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            pinkLineView2.heightAnchor.constraint(equalToConstant: 3)
+            startTimeTextField.topAnchor.constraint(equalTo: pinkLineView2.bottomAnchor, constant: 10),
+            startTimeTextField.leadingAnchor.constraint(equalTo: selectDayTextField.trailingAnchor, constant: 10),
+            startTimeTextField.trailingAnchor.constraint(equalTo: finishTimeTextField.leadingAnchor, constant: -10),
+            startTimeTextField.widthAnchor.constraint(equalToConstant: screenSizeWidth * 0.3)
+        ])
+        NSLayoutConstraint.activate([
+            detailScheduleTextField.topAnchor.constraint(equalTo: startTimeTextField.bottomAnchor, constant: 10),
+            detailScheduleTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            detailScheduleTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
+        NSLayoutConstraint.activate([
+            addScheduleButton.topAnchor.constraint(equalTo: detailScheduleTextField.bottomAnchor, constant: 10),
+            addScheduleButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            addScheduleButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
+            addScheduleButton.heightAnchor.constraint(equalToConstant: 35)
         ])
     }
     private func setUpPicker() {
@@ -355,7 +368,11 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         mission_random()
     }
     private func mission_random() {
-        let missionArray = [L10n.takeAGoodPicture, L10n.takeFunnyPictures, L10n.takeAStylishVlog, L10n.post10StoriesPerDay, L10n.shootAndEditYouTuberLikeVideos]
+        let missionArray = [L10n.takeAGoodPicture,
+                            L10n.takeFunnyPictures,
+                            L10n.takeAStylishVlog,
+                            L10n.post10StoriesPerDay,
+                            L10n.shootAndEditYouTuberLikeVideos]
         let randomMission = missionArray.randomElement()
         missionLabel.text = randomMission
     }
@@ -409,7 +426,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         startTimeTextField.text = ""
         finishTimeTextField.text = ""
         selectDayTextField.text = ""
-        tableView.reloadData()
+        scheduleTableView.reloadData()
         print("保存")
     }
     private func savePlan() {
@@ -429,7 +446,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
     }
     private func getPlanData() {
         plans = []
-        tableView.reloadData() // テーブルビューをリロード
+        scheduleTableView.reloadData() // テーブルビューをリロード
     }
     private func getPlanDicData() {
         plansDic = [:]
@@ -440,7 +457,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
                 plansDic[getPlan.daySection] = [getPlan]
             }
         }
-        tableView.reloadData()
+        scheduleTableView.reloadData()
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return 7
@@ -457,28 +474,44 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
 
 extension EditViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let array = Array(plansDic.keys).sorted()
-        let key = array[section]
-        return plansDic[key]?.count ?? 0
+//        let array = Array(plansDic.keys).sorted()
+//        let key = array[section]
+//        return plansDic[key]?.count ?? 0
         // return plans.count
+        1
     }
     func numberOfSections(in tableView: UITableView) -> Int {
-        return plansDic.keys.count
+//        return plansDic.keys.count
+        return 1
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let array = Array(plansDic.keys).sorted()
-        let key = array[section]
-        return key
+//        let array = Array(plansDic.keys).sorted()
+//        let key = array[section]
+//        return key
+        "test"
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        let key = Array(plansDic.keys).sorted()[indexPath.section] // 0
-        let plann = plansDic[key]?[indexPath.row]
-        (cell.viewWithTag(1) as? UILabel)!.text = plann?.startTime
-        (cell.viewWithTag(2) as? UILabel)!.text = plann?.finishTime
-        (cell.viewWithTag(3) as? UILabel)!.text = plann?.planText
+//        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+//        let key = Array(plansDic.keys).sorted()[indexPath.section] // 0
+//        let plann = plansDic[key]?[indexPath.row]
+//        (cell.viewWithTag(1) as? UILabel)!.text = plann?.startTime
+//        (cell.viewWithTag(2) as? UILabel)!.text = plann?.finishTime
+//        (cell.viewWithTag(3) as? UILabel)!.text = plann?.planText
+//        return cell
+        guard let cell = scheduleTableView.dequeueReusableCell(withIdentifier: EditTableViewCell.identifier,
+                                                               for: indexPath) as? EditTableViewCell else {
+            fatalError()
+        }
+//        let key = plansDictionary.keys.sorted()[indexPath.section]
+//        let plan = plansDictionary[key]?[indexPath.row]
+        cell.setUp(startedTime: "00:00", finishTime: "00:00", planText: "planText")
         return cell
     }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        scheduleTableView.deselectRow(at: indexPath, animated: true)
+    }
+
     func tableView(_ tableView: UITableView,
                    commit editingStyle: UITableViewCell.EditingStyle,
                    forRowAt indexPath: IndexPath) {
