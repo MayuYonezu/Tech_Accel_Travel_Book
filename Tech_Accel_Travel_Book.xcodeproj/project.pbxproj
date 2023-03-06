@@ -40,6 +40,7 @@
 		735B1F03299144BD00DE786D /* ListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 735B1F02299144BD00DE786D /* ListViewController.storyboard */; };
 		735B1F06299144E400DE786D /* LookViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 735B1F05299144E400DE786D /* LookViewController.storyboard */; };
 		73FA9BD629B60DE500A8547A /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FA9BD529B60DE500A8547A /* ListTableViewCell.swift */; };
+		73FA9BDF29B617EF00A8547A /* ListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73FA9BDE29B617EF00A8547A /* ListPresenter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		735B1F02299144BD00DE786D /* ListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ListViewController.storyboard; sourceTree = "<group>"; };
 		735B1F05299144E400DE786D /* LookViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LookViewController.storyboard; sourceTree = "<group>"; };
 		73FA9BD529B60DE500A8547A /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
+		73FA9BDE29B617EF00A8547A /* ListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPresenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 		1C7B122B297B8FD800D784A3 /* Tech_Accel_Travel_Book */ = {
 			isa = PBXGroup;
 			children = (
+				73FA9BDC29B617DA00A8547A /* Presenter */,
 				734D6C77297D29CE00D14F3E /* Common */,
 				1C7B122C297B8FD800D784A3 /* AppDelegate.swift */,
 				1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */,
@@ -307,6 +310,22 @@
 				73FA9BD529B60DE500A8547A /* ListTableViewCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		73FA9BDC29B617DA00A8547A /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				73FA9BDD29B617E200A8547A /* List */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		73FA9BDD29B617E200A8547A /* List */ = {
+			isa = PBXGroup;
+			children = (
+				73FA9BDE29B617EF00A8547A /* ListPresenter.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -506,6 +525,7 @@
 				1C7B122F297B8FD800D784A3 /* SceneDelegate.swift in Sources */,
 				03BCBC2A2987F11C00B3FF1A /* MainRealm.swift in Sources */,
 				734D6C7F297D2A0E00D14F3E /* Instantiable.swift in Sources */,
+				73FA9BDF29B617EF00A8547A /* ListPresenter.swift in Sources */,
 				731A193A299667830097F7EB /* WelcomeViewControllerPreview.swift in Sources */,
 				1C7B1269297B979000D784A3 /* Project.swift in Sources */,
 				1C7B1267297B973D00D784A3 /* LookViewContoroller.swift in Sources */,

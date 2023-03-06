@@ -59,6 +59,9 @@ final class WelcomeViewController: UIViewController {
         navigationItem.standardAppearance = appearance
         navigationItem.scrollEdgeAppearance = appearance
         navigationItem.compactAppearance = appearance
+
+        // AddTarget
+        projectListButton.addTarget(self, action: #selector(toListVC), for: .touchUpInside)
     }
 
     override func viewDidLayoutSubviews() {
@@ -82,13 +85,11 @@ final class WelcomeViewController: UIViewController {
             projectListButton.topAnchor.constraint(equalTo: newProjectButton.bottomAnchor, constant: 10),
             projectListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
         ])
-
-        // AddTarget
-        projectListButton.addTarget(self, action: #selector(toLookVC), for: .touchUpInside)
     }
 
-    @objc func toLookVC() {
-        let lookVC = LookViewController()
-        self.navigationController?.pushViewController(lookVC, animated: true)
+    @objc func toListVC() {
+        let listVC = ListViewController()
+        listVC.inject(presenter: ListPresenter(view: listVC))
+        self.navigationController?.pushViewController(listVC, animated: true)
     }
 }
