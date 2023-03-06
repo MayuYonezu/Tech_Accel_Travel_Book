@@ -124,8 +124,8 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         table.register(EditTableViewCell.self, forCellReuseIdentifier: EditTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .white
-        table.dataSource = self
-        table.delegate = self
+//        table.dataSource = self
+//        table.delegate = self
         table.isEditing = true
         table.allowsSelectionDuringEditing = true
         return table
@@ -152,12 +152,12 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         tapGesture.cancelsTouchesInView = false
         getProjectId()
         setUpDesign()
-        navigationDesign()
+//        navigationDesign()
         // SaveButton
-        saveButtonItem = UIBarButtonItem(title: L10n.save,
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(saveButtonPressed(_:)))
+//        saveButtonItem = UIBarButtonItem(title: L10n.save,
+//                                         style: .plain,
+//                                         target: self,
+//                                         action: #selector(saveButtonPressed(_:)))
         self.navigationItem.rightBarButtonItem = saveButtonItem
         setUpPicker()
     }
@@ -354,7 +354,7 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         finishTimeTextField.placeholder = L10n.timeToFinish
         selectDayTextField.placeholder = L10n.dateSelect
         detailTextFiled.placeholder = L10n.appointmentDetails
-        mission_random()
+//        mission_random()
         startDayTextField.delegate = self
         startDayTextField.inputView = startDayPicker
         finishDayTextField.delegate = self
@@ -364,196 +364,196 @@ final class EditViewController: UIViewController, UITextFieldDelegate, UIImagePi
         finishTimeTextField.delegate = self
         finishTimeTextField.inputView = finishTimePicker
     }
-    @IBAction func mission_update() {
-        mission_random()
-    }
-    private func mission_random() {
-        let missionArray = [L10n.takeAGoodPicture,
-                            L10n.takeFunnyPictures,
-                            L10n.takeAStylishVlog,
-                            L10n.post10StoriesPerDay,
-                            L10n.shootAndEditYouTuberLikeVideos]
-        let randomMission = missionArray.randomElement()
-        missionLabel.text = randomMission
-    }
-    @objc func saveButtonPressed(_ sender: UIBarButtonItem) {
-        guard
-            selectProjectId != nil,
-            titleTextField.text != nil,
-            startDayTextField.text != nil,
-            finishDayTextField.text != nil,
-            missionLabel.text != nil else {return}
-        print("プロジェクト保存")
-        alert(title: L10n.success,
-              message: L10n.saveCompleted)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-    }
-    private func saveProject() {
-        guard let titleText = titleTextField.text,
-              let startDayText = startDayTextField.text,
-              let finishDayText = finishDayTextField.text,
-              let missionText = missionLabel.text else { return }
-        let project = Project()
-        project.title = titleText
-        project.startDays = startDayText
-        project.finishDays = finishDayText
-        project.mission = missionText
-        guard let realm = MainRealm.shared.realm else {
-            return
-        }
-
-        try? realm.write({
-            realm.add(project) // レコードを追加
-        })
-        print(project)
-
-        try? realm.write({
-            for plan in plans {
-                project.plans.append(plan)
-            }
-        })
-    }
-    @IBAction func addButton() {
-        guard
-            detailTextFiled.text != nil,
-            startTimeTextField.text != nil,
-            finishTimeTextField.text != nil,
-            selectDayTextField.text != nil else {return}
-        savePlan()
-        detailTextFiled.text = ""
-        startTimeTextField.text = ""
-        finishTimeTextField.text = ""
-        selectDayTextField.text = ""
-        scheduleTableView.reloadData()
-        print("保存")
-    }
-    private func savePlan() {
-        guard let planText = detailTextFiled.text,
-              let startText = startTimeTextField.text,
-              let finishText = finishTimeTextField.text,
-              let dayText = selectDayTextField.text
-        else { return }
-        let plan = Plan()
-        plan.planText = planText
-        plan.startTime = startText
-        plan.finishTime = finishText
-        plan.daySection = dayText
-        plans.append(plan)
-        print("Planを保存しました")
-        getPlanDicData()
-    }
-    private func getPlanData() {
-        plans = []
-        scheduleTableView.reloadData() // テーブルビューをリロード
-    }
-    private func getPlanDicData() {
-        plansDic = [:]
-        for getPlan in plans {
-            if plansDic.keys.contains(getPlan.daySection) {
-                plansDic[getPlan.daySection]?.append(getPlan)
-            } else {
-                plansDic[getPlan.daySection] = [getPlan]
-            }
-        }
-        scheduleTableView.reloadData()
-    }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 7
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return data[row]
-    }
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectDayTextField.text = data[row]
-        print(data[row])
-        print(plansDic)
-    }
+//    @IBAction func mission_update() {
+//        mission_random()
+//    }
+//    private func mission_random() {
+//        let missionArray = [L10n.takeAGoodPicture,
+//                            L10n.takeFunnyPictures,
+//                            L10n.takeAStylishVlog,
+//                            L10n.post10StoriesPerDay,
+//                            L10n.shootAndEditYouTuberLikeVideos]
+//        let randomMission = missionArray.randomElement()
+//        missionLabel.text = randomMission
+//    }
+//    @objc func saveButtonPressed(_ sender: UIBarButtonItem) {
+//        guard
+//            selectProjectId != nil,
+//            titleTextField.text != nil,
+//            startDayTextField.text != nil,
+//            finishDayTextField.text != nil,
+//            missionLabel.text != nil else {return}
+//        print("プロジェクト保存")
+//        alert(title: L10n.success,
+//              message: L10n.saveCompleted)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            self.navigationController?.popToRootViewController(animated: true)
+//        }
+//    }
+//    private func saveProject() {
+//        guard let titleText = titleTextField.text,
+//              let startDayText = startDayTextField.text,
+//              let finishDayText = finishDayTextField.text,
+//              let missionText = missionLabel.text else { return }
+//        let project = Project()
+//        project.title = titleText
+//        project.startDays = startDayText
+//        project.finishDays = finishDayText
+//        project.mission = missionText
+//        guard let realm = MainRealm.shared.realm else {
+//            return
+//        }
+//
+//        try? realm.write({
+//            realm.add(project) // レコードを追加
+//        })
+//        print(project)
+//
+//        try? realm.write({
+//            for plan in plans {
+//                project.plans.append(plan)
+//            }
+//        })
+//    }
+//    @IBAction func addButton() {
+//        guard
+//            detailTextFiled.text != nil,
+//            startTimeTextField.text != nil,
+//            finishTimeTextField.text != nil,
+//            selectDayTextField.text != nil else {return}
+//        savePlan()
+//        detailTextFiled.text = ""
+//        startTimeTextField.text = ""
+//        finishTimeTextField.text = ""
+//        selectDayTextField.text = ""
+//        scheduleTableView.reloadData()
+//
+//    }
+//    private func savePlan() {
+//        guard let planText = detailTextFiled.text,
+//              let startText = startTimeTextField.text,
+//              let finishText = finishTimeTextField.text,
+//              let dayText = selectDayTextField.text
+//        else { return }
+//        let plan = Plan()
+//        plan.planText = planText
+//        plan.startTime = startText
+//        plan.finishTime = finishText
+//        plan.daySection = dayText
+//        plans.append(plan)
+//        print("Planを保存しました")
+//        getPlanDicData()
+//    }
+//    private func getPlanData() {
+//        plans = []
+//        scheduleTableView.reloadData() // テーブルビューをリロード
+//    }
+//    private func getPlanDicData() {
+//        plansDic = [:]
+//        for getPlan in plans {
+//            if plansDic.keys.contains(getPlan.daySection) {
+//                plansDic[getPlan.daySection]?.append(getPlan)
+//            } else {
+//                plansDic[getPlan.daySection] = [getPlan]
+//            }
+//        }
+//        scheduleTableView.reloadData()
+//    }
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return 7
+//    }
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return data[row]
+//    }
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        selectDayTextField.text = data[row]
+//        print(data[row])
+//        print(plansDic)
+//    }
 }
 
-extension EditViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let array = Array(plansDic.keys).sorted()
-//        let key = array[section]
-//        return plansDic[key]?.count ?? 0
-        // return plans.count
-        1
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-//        return plansDic.keys.count
-        return 1
-    }
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let array = Array(plansDic.keys).sorted()
-//        let key = array[section]
-//        return key
-        "test"
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-//        let key = Array(plansDic.keys).sorted()[indexPath.section] // 0
-//        let plann = plansDic[key]?[indexPath.row]
-//        (cell.viewWithTag(1) as? UILabel)!.text = plann?.startTime
-//        (cell.viewWithTag(2) as? UILabel)!.text = plann?.finishTime
-//        (cell.viewWithTag(3) as? UILabel)!.text = plann?.planText
+//extension EditViewController: UITableViewDelegate, UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+////        let array = Array(plansDic.keys).sorted()
+////        let key = array[section]
+////        return plansDic[key]?.count ?? 0
+//        // return plans.count
+//        1
+//    }
+//    func numberOfSections(in tableView: UITableView) -> Int {
+////        return plansDic.keys.count
+//        return 1
+//    }
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+////        let array = Array(plansDic.keys).sorted()
+////        let key = array[section]
+////        return key
+//        "test"
+//    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+////        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+////        let key = Array(plansDic.keys).sorted()[indexPath.section] // 0
+////        let plann = plansDic[key]?[indexPath.row]
+////        (cell.viewWithTag(1) as? UILabel)!.text = plann?.startTime
+////        (cell.viewWithTag(2) as? UILabel)!.text = plann?.finishTime
+////        (cell.viewWithTag(3) as? UILabel)!.text = plann?.planText
+////        return cell
+//        guard let cell = scheduleTableView.dequeueReusableCell(withIdentifier: EditTableViewCell.identifier,
+//                                                               for: indexPath) as? EditTableViewCell else {
+//            fatalError()
+//        }
+////        let key = plansDictionary.keys.sorted()[indexPath.section]
+////        let plan = plansDictionary[key]?[indexPath.row]
+//        cell.setUp(startedTime: "00:00", finishTime: "00:00", planText: "planText")
 //        return cell
-        guard let cell = scheduleTableView.dequeueReusableCell(withIdentifier: EditTableViewCell.identifier,
-                                                               for: indexPath) as? EditTableViewCell else {
-            fatalError()
-        }
-//        let key = plansDictionary.keys.sorted()[indexPath.section]
-//        let plan = plansDictionary[key]?[indexPath.row]
-        cell.setUp(startedTime: "00:00", finishTime: "00:00", planText: "planText")
-        return cell
-    }
+//    }
+//
+//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        scheduleTableView.deselectRow(at: indexPath, animated: true)
+//    }
+//
+//    func tableView(_ tableView: UITableView,
+//                   commit editingStyle: UITableViewCell.EditingStyle,
+//                   forRowAt indexPath: IndexPath) {
+//        let key = Array(plansDic.keys).sorted()
+//        print("1. ", key)
+//        plansDic[key[indexPath.section]]!.remove(at: indexPath.row)
+//        tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+//        print("2. ", plansDic)
+//        if plansDic[key[indexPath.section]]!.count == 0 {
+//            plansDic.removeValue(forKey: String(key[indexPath.section]))
+//            print("3. ", plansDic)
+//        }
+//        plans.remove(at: indexPath.row)
+//        print(plansDic)
+//        tableView.reloadData()
+//        print("削除します")
+//    }
+//    func tableView(_ tableView: UITableView,
+//                   moveRowAt fromIndexPath: IndexPath,
+//                   indexPath: IndexPath) {
+//    }
+//    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+//        return false
+//    }
+//}
 
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        scheduleTableView.deselectRow(at: indexPath, animated: true)
-    }
-
-    func tableView(_ tableView: UITableView,
-                   commit editingStyle: UITableViewCell.EditingStyle,
-                   forRowAt indexPath: IndexPath) {
-        let key = Array(plansDic.keys).sorted()
-        print("1. ", key)
-        plansDic[key[indexPath.section]]!.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
-        print("2. ", plansDic)
-        if plansDic[key[indexPath.section]]!.count == 0 {
-            plansDic.removeValue(forKey: String(key[indexPath.section]))
-            print("3. ", plansDic)
-        }
-        plans.remove(at: indexPath.row)
-        print(plansDic)
-        tableView.reloadData()
-        print("削除します")
-    }
-    func tableView(_ tableView: UITableView,
-                   moveRowAt fromIndexPath: IndexPath,
-                   indexPath: IndexPath) {
-    }
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-}
-
-extension EditViewController: UINavigationControllerDelegate {
-    private func navigationDesign() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(asset: Asset.mainPink)
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText]
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.standardAppearance = appearance
-        navigationItem.scrollEdgeAppearance = appearance
-        navigationItem.compactAppearance = appearance
-        saveButtonItem = UIBarButtonItem(title: L10n.save,
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(saveButtonPressed(_:)))
-        self.navigationItem.rightBarButtonItem = saveButtonItem
-        getPlanData()
-        getPlanDicData()
-    }
-}
+//extension EditViewController: UINavigationControllerDelegate {
+//    private func navigationDesign() {
+//        let appearance = UINavigationBarAppearance()
+//        appearance.configureWithOpaqueBackground()
+//        appearance.backgroundColor = UIColor(asset: Asset.mainPink)
+//        appearance.titleTextAttributes = [.foregroundColor: UIColor.lightText]
+//        navigationController?.navigationBar.prefersLargeTitles = true
+//        navigationItem.standardAppearance = appearance
+//        navigationItem.scrollEdgeAppearance = appearance
+//        navigationItem.compactAppearance = appearance
+//        saveButtonItem = UIBarButtonItem(title: L10n.save,
+//                                         style: .plain,
+//                                         target: self,
+//                                         action: #selector(saveButtonPressed(_:)))
+//        self.navigationItem.rightBarButtonItem = saveButtonItem
+//        getPlanData()
+//        getPlanDicData()
+//    }
+//}
