@@ -1,5 +1,6 @@
 import UIKit
 import RealmSwift
+import RxSwift
 
 final class LookViewController: UIViewController {
     private var projectData: Project?
@@ -79,12 +80,17 @@ final class LookViewController: UIViewController {
     }()
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        self.viewModel = .init()
         super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
         fatalError()
     }
+
+    private let disposeBag = DisposeBag()
+
+    private let viewModel: LookViewModel
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,6 +116,9 @@ final class LookViewController: UIViewController {
         realm_process()
         getPlanData()
         getPlanDicData()
+
+        viewModel.input.fetch.accept(num)
+        addRxObserver()
     }
 
     override func viewDidLayoutSubviews() {
@@ -171,13 +180,24 @@ final class LookViewController: UIViewController {
         ])
     }
 
+    private func addRxObserver() {
+        viewModel.output.projectData
+            .subscribe(with: self) { owner, data in
+                owner.titleLabel.text = "\(data.title)"
+                owner.startDayLabel.text = "\(data.startDays)"
+                owner.finishDayLabel.text = "\(data.finishDays)"
+                owner.missionLabel.text = "\(data.mission)"
+//                owner.plans = data.plans
+            }
+            .disposed(by: disposeBag)
+    }
+
     // Realm系の処理
     private func realm_process() {
         // 文字列で条件文を書いてデータを取得
         guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
             return
         }
-        print(projectData)
         for data in projectData {
             titleLabel.text = "\(data.title)"
             startDayLabel.text = "\(data.startDays)"
@@ -187,7 +207,7 @@ final class LookViewController: UIViewController {
         }
         tableView.reloadData()
     }
-
+    //TODO: -できれば、setNavigationみたいにしたい
     @objc func done() {
         self.navigationController?.popToRootViewController(animated: true)
     }
