@@ -3,9 +3,9 @@ import RealmSwift
 import RxSwift
 
 final class LookViewController: UIViewController {
-    private var projectData: Project?
-    private var plans = List<Plan>()
-    private var plansDictionary = [String: [Plan]]()
+//    private var projectData: Project?
+//    private var plans = List<Plan>()
+//    private var plansDictionary = [String: [Plan]]()
     private var num = Int()
 
     private let doneBarButtonItem = UIBarButtonItem()
@@ -114,10 +114,8 @@ final class LookViewController: UIViewController {
 
         // Funtions
 //        realm_process()
-        getPlanData()
-        getPlanDicData()
 
-        viewModel.input.fetch.accept(num)
+        viewModel.input.fetchStart.accept(num)
         addRxObserver()
     }
 
@@ -187,60 +185,13 @@ final class LookViewController: UIViewController {
                 owner.startDayLabel.text = "\(data.startDays)"
                 owner.finishDayLabel.text = "\(data.finishDays)"
                 owner.missionLabel.text = "\(data.mission)"
-                owner.plans = data.plans
                 self.tableView.reloadData()
-                print("購読はしてる")
             }
             .disposed(by: disposeBag)
     }
 
-    // Realm系の処理
-//    private func realm_process() {
-//        // 文字列で条件文を書いてデータを取得
-//        guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
-//            return
-//        }
-//        for data in projectData {
-//            titleLabel.text = "\(data.title)"
-//            startDayLabel.text = "\(data.startDays)"
-//            finishDayLabel.text = "\(data.finishDays)"
-//            missionLabel.text = "\(data.mission)"
-//            plans = data.plans
-//        }
-//        tableView.reloadData()
-//    }
-
     @objc func done() {
         self.navigationController?.popToRootViewController(animated: true)
-    }
-
-    private func getPlanData() {
-        // 文字列で条件文を書いてデータを取得
-        guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
-            return
-        }
-        for data in projectData {
-            plans = data.plans
-            tableView.reloadData()
-        }
-    }
-
-    private func getPlanDicData() {
-        // 全部の値が取得されてしまう
-        guard let plans = MainRealm.shared.realm?.objects(Plan.self).reversed() else {
-            return
-        }
-        plansDictionary = [:]
-        for getPlan in plans {
-            if plansDictionary.keys.contains(getPlan.daySection) {
-                // ディクショナリーの鍵に日付が含まれてたら、kを追加
-                plansDictionary[getPlan.daySection]?.append(getPlan)
-            } else {
-                // ディクショナリーの鍵に日付が含まれてなかったら配列を初期化
-                plansDictionary[getPlan.daySection] = [getPlan]
-            }
-        }
-        tableView.reloadData()
     }
 }
 
