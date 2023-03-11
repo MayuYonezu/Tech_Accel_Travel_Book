@@ -15,8 +15,8 @@ protocol LookViewModelInput {
 }
 
 protocol LookViewModelOutput {
-    var projectData: PublishRelay<Project> { get }
-//    var plans: PublishRelay<List<Plan>> { get }
+    var projectDataRelay: PublishRelay<Project> { get }
+    var plansRelay: PublishRelay<List<Plan>> { get }
 //    var plansDictionary: PublishRelay<[String: [Plan]]> { get }
 }
 
@@ -34,26 +34,30 @@ final class LookViewModel: LookViewModelType, LookViewModelInput, LookViewModelO
     let fetch: PublishRelay<Int> = PublishRelay()
 
     //output
-    var projectData: PublishRelay<Project> = PublishRelay()
-//    var plans: PublishRelay<List<Plan>> = PublishRelay()
+    var projectDataRelay: PublishRelay<Project> = PublishRelay()
+    var plansRelay: PublishRelay<List<Plan>> = PublishRelay()
 //    var plansDictionary: PublishRelay<[String: [Plan]]> = PublishRelay()
 
     //extra
     private let disposeBag = DisposeBag()
-    private var model: LookModel
 
     init() {
-        self.model = LookModel()
 
         fetch
             .subscribe(with: self) { owner, num in
-                owner.model.realm_process(num: num)
+                guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
+                    return
+                }
+                owner.projectDataRelay.accept(projectData.last ?? ._rlmDefaultValue())
 
-                //publishRelayに保存
-//                owner.projectData.accept(owner.model.projectData.projectData)
             }
             .disposed(by: disposeBag)
 
+        projectDataRelay
+            .subscribe(with: self) { owner, projectData in
+//                owner.plansRelay.accept(projec)
+            }
+            .disposed(by: disposeBag)
     }
 
 }

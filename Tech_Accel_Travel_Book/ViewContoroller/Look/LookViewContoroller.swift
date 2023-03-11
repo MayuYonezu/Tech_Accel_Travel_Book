@@ -113,7 +113,7 @@ final class LookViewController: UIViewController {
         view.addSubview(tableView)
 
         // Funtions
-        realm_process()
+//        realm_process()
         getPlanData()
         getPlanDicData()
 
@@ -181,33 +181,35 @@ final class LookViewController: UIViewController {
     }
 
     private func addRxObserver() {
-        viewModel.output.projectData
+        viewModel.output.projectDataRelay
             .subscribe(with: self) { owner, data in
                 owner.titleLabel.text = "\(data.title)"
                 owner.startDayLabel.text = "\(data.startDays)"
                 owner.finishDayLabel.text = "\(data.finishDays)"
                 owner.missionLabel.text = "\(data.mission)"
-//                owner.plans = data.plans
+                owner.plans = data.plans
+                self.tableView.reloadData()
+                print("購読はしてる")
             }
             .disposed(by: disposeBag)
     }
 
     // Realm系の処理
-    private func realm_process() {
-        // 文字列で条件文を書いてデータを取得
-        guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
-            return
-        }
-        for data in projectData {
-            titleLabel.text = "\(data.title)"
-            startDayLabel.text = "\(data.startDays)"
-            finishDayLabel.text = "\(data.finishDays)"
-            missionLabel.text = "\(data.mission)"
-            plans = data.plans
-        }
-        tableView.reloadData()
-    }
-    //TODO: -できれば、setNavigationみたいにしたい
+//    private func realm_process() {
+//        // 文字列で条件文を書いてデータを取得
+//        guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
+//            return
+//        }
+//        for data in projectData {
+//            titleLabel.text = "\(data.title)"
+//            startDayLabel.text = "\(data.startDays)"
+//            finishDayLabel.text = "\(data.finishDays)"
+//            missionLabel.text = "\(data.mission)"
+//            plans = data.plans
+//        }
+//        tableView.reloadData()
+//    }
+
     @objc func done() {
         self.navigationController?.popToRootViewController(animated: true)
     }
