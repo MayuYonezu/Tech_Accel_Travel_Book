@@ -11,13 +11,14 @@ import RxSwift
 import RxRelay
 
 protocol LookViewModelInput {
-    var fetchStart: PublishRelay<Int> { get }
+    var fetchStart: PublishRelay<Void> { get }
 }
 
 protocol LookViewModelOutput {
-    var projectDataRelay: PublishRelay<Project> { get }
+    var projectDataRelay: BehaviorRelay<Project?> { get }
     var plansRelay: PublishRelay<List<Plan>> { get }
-    var plansDictionaryRelay: PublishRelay<[String: [Plan]]> { get }
+    var plansDictionaryRelay: BehaviorRelay<[String: [Plan]]> { get }
+    var reloadDataRelay: PublishRelay<Void> { get }
 }
 
 protocol LookViewModelType {
@@ -30,41 +31,48 @@ final class LookViewModel: LookViewModelType, LookViewModelInput, LookViewModelO
     var input: LookViewModelInput { self }
     var output: LookViewModelOutput { self }
 
-    //input
-    let fetchStart: PublishRelay<Int> = PublishRelay()
+    // input
+    let fetchStart: PublishRelay<Void> = PublishRelay()
 
-    //output
-    var projectDataRelay: PublishRelay<Project> = PublishRelay()
-    var plansRelay: PublishRelay<List<Plan>> = PublishRelay()
-    var plansDictionaryRelay: PublishRelay<[String: [Plan]]> = PublishRelay()
+    // output
+    private(set) var projectDataRelay: BehaviorRelay<Project?> = BehaviorRelay(value: nil)
+    private(set) var plansRelay: PublishRelay<List<Plan>> = PublishRelay()
+    private(set) var plansDictionaryRelay: BehaviorRelay<[String: [Plan]]> = BehaviorRelay(value: [:])
+    private(set) var reloadDataRelay: PublishRelay<Void> = PublishRelay()
 
-    //extra
+    // extra
     private let disposeBag = DisposeBag()
 
-    init() {
+    init(projectID: String) {
 
         var plansDic = [String: [Plan]]()
 
-        fetchStart
-            .subscribe(with: self) { owner, num in
-                guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
-                    return
+        let project = fetchStart
+            .compactMap { _ -> Project? in
+                guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(projectID)'"),
+                      let project = projectData.last else {
+                    return nil
                 }
-                owner.projectDataRelay.accept(projectData.last ?? ._rlmDefaultValue())
+                return project
+            }
+            .share()
 
+        project
+            .subscribe(with: self) { owner, project in
+                // output
+                owner.projectDataRelay.accept(project)
             }
             .disposed(by: disposeBag)
 
-        projectDataRelay
-            .subscribe(with: self) { owner, projectData in
-                owner.plansRelay.accept(projectData.plans)
+        project
+            .subscribe(with: self) { owner, project in
+                owner.plansRelay.accept(project.plans)
             }
             .disposed(by: disposeBag)
 
-        plansRelay
-            .subscribe(with: self) { owner, plans in
-                let sortedPlans = plans.reversed()
-                print(plans)
+        project
+            .subscribe(with: self) { owner, project in
+                let sortedPlans = project.plans.reversed()
                 for getPlan in sortedPlans {
                     if plansDic.keys.contains(getPlan.daySection) {
                         plansDic[getPlan.daySection]?.append(getPlan)
@@ -72,9 +80,12 @@ final class LookViewModel: LookViewModelType, LookViewModelInput, LookViewModelO
                         plansDic[getPlan.daySection] = [getPlan]
                     }
                 }
+                // output
                 owner.plansDictionaryRelay.accept(plansDic)
+                // output
+                owner.reloadDataRelay.accept(())
             }
             .disposed(by: disposeBag)
-    }
 
+    }
 }

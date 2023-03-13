@@ -1,12 +1,9 @@
 import UIKit
 import RealmSwift
 import RxSwift
+import RxCocoa
 
 final class LookViewController: UIViewController {
-//    private var projectData: Project?
-//    private var plans = List<Plan>()
-//    private var plansDictionary = [String: [Plan]]()
-    private var num = Int()
 
     private let doneBarButtonItem = UIBarButtonItem()
     private lazy var tableView: UITableView = {
@@ -21,7 +18,6 @@ final class LookViewController: UIViewController {
     // titleLabel生成
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Title"
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
@@ -30,7 +26,6 @@ final class LookViewController: UIViewController {
     // startDayLabel生成
     private let startDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "0000/00/00"
         label.font = UIFont.systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
@@ -39,7 +34,6 @@ final class LookViewController: UIViewController {
     // finishLabel生成
     private let finishDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "0000/00/00"
         label.font = UIFont.systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
@@ -57,7 +51,6 @@ final class LookViewController: UIViewController {
     // missionTitleLable生成
     private let missionTitleLabel: UILabel = {
         let missionTitleLabel = UILabel()
-        missionTitleLabel.text = "Mission"
         missionTitleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         missionTitleLabel.textColor = UIColor(asset: Asset.mainPink)
         missionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -66,7 +59,6 @@ final class LookViewController: UIViewController {
     // missionLabel生成
     private let missionLabel: UILabel = {
         let missionLabel = UILabel()
-        missionLabel.text = "aaa"
         missionLabel.font = UIFont.systemFont(ofSize: 17)
         missionLabel.translatesAutoresizingMaskIntoConstraints = false
         missionLabel.textColor = .black
@@ -79,8 +71,11 @@ final class LookViewController: UIViewController {
         return mainPinkImageView
     }()
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        self.viewModel = .init()
+    private let disposeBag = DisposeBag()
+    private let viewModel: LookViewModel
+
+    init(viewModel: LookViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -88,17 +83,12 @@ final class LookViewController: UIViewController {
         fatalError()
     }
 
-    private let disposeBag = DisposeBag()
-
-    private let viewModel: LookViewModel
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // backgroundColor指定
         view.backgroundColor = .white
         // Viewに表示
         doneBarButtonItem.style = .done
-        doneBarButtonItem.action = #selector(done)
         doneBarButtonItem.target = self
         doneBarButtonItem.title = L10n.done
         self.navigationItem.rightBarButtonItem = doneBarButtonItem
@@ -111,11 +101,7 @@ final class LookViewController: UIViewController {
         view.addSubview(missionTitleLabel)
         view.addSubview(mainPinkImageView)
         view.addSubview(tableView)
-
-        // Funtions
-//        realm_process()
-
-        viewModel.input.fetchStart.accept(num)
+        // ViewModelとのバインディング
         addRxObserver()
     }
 
@@ -179,53 +165,71 @@ final class LookViewController: UIViewController {
     }
 
     private func addRxObserver() {
+        // ViewModelのinputのfetchStartにVoidを流す
+        viewModel.input.fetchStart.accept(())
+
+        doneBarButtonItem.rx.tap.asObservable()
+            .subscribe(with: self) { owner, _ in
+                owner.navigationController?.popToRootViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+
         viewModel.output.projectDataRelay
             .subscribe(with: self) { owner, data in
+                guard let data else {
+                    return
+                }
                 owner.titleLabel.text = "\(data.title)"
                 owner.startDayLabel.text = "\(data.startDays)"
                 owner.finishDayLabel.text = "\(data.finishDays)"
                 owner.missionLabel.text = "\(data.mission)"
-                self.tableView.reloadData()
             }
             .disposed(by: disposeBag)
-    }
 
-    @objc func done() {
-        self.navigationController?.popToRootViewController(animated: true)
+        viewModel.output.reloadDataRelay
+            .subscribe(with: self) { owner, _ in
+                print("(ViewController)reloadDataの購読")
+                owner.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
 extension LookViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let plans = plansDictionary.keys.sorted()
-//        let key = plans[section]
-//        return plansDictionary[key]?.count ?? 0
-        1
+        let plansDictionary = viewModel.output.plansDictionaryRelay.value
+        return plansDictionary.keys.count
     }
 
     // セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
-//        return plansDictionary.keys.count
-        1
+        let plansDictionary = viewModel.output.plansDictionaryRelay.value
+        return plansDictionary.keys.count
     }
 
     // セクションのタイトル
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let plans = plansDictionary.keys.sorted()
-//        let sectionTitle = plans[section]
-//        return sectionTitle
-        return "test"
+        let plansDictionary = viewModel.output.plansDictionaryRelay.value
+        let plans = plansDictionary.keys.sorted()
+        let sectionTitle = plans[section]
+        return sectionTitle
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LookTableViewCell.identifier, for: indexPath) as? LookTableViewCell else {
             fatalError()
         }
-//        let key = plansDictionary.keys.sorted()[indexPath.section]
-//        let plan = plansDictionary[key]?[indexPath.row]
 
+        let plansDictionary = viewModel.output.plansDictionaryRelay.value
+        let key = plansDictionary.keys.sorted()[indexPath.section]
+        let plan = plansDictionary[key]?[indexPath.row]
         // MEMO: - ここだけちゃんと表示させる！
-        cell.setUp(startedTime: "start", finishTime: "finishTime", planText: "planText")
+        // TODO: - unwrapした情報を載せられるように
+        cell.setUp(
+            startedTime: plan?.startTime ?? "startHoge",
+            finishTime: plan?.finishTime ?? "finishHoge",
+            planText: plan?.planText ?? "planTextHoge"
+        )
         return cell
     }
 

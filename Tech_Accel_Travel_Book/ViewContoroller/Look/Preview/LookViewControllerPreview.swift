@@ -8,13 +8,13 @@
 import Foundation
 import SwiftUI
 
-enum LookViewControllerPreview: PreviewProvider {
-    static let previews = PreviewGroup.viewController {
-        Preview("LookViewController") {
-            let viewController = LookViewController()
-            return viewController
-        }
-    }
-        .previewWidth(.full)
-        .previewHeight(.constant(44))
-}
+//enum LookViewControllerPreview: PreviewProvider {
+//    static let previews = PreviewGroup.viewController {
+//        Preview("LookViewController") {
+//            let viewController = LookViewController(viewModel: LookViewModel(projectID: "0"))
+//            return viewController
+//        }
+//    }
+//        .previewWidth(.full)
+//        .previewHeight(.constant(44))
+//}
