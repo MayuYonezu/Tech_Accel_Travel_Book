@@ -16,7 +16,6 @@ protocol LookViewModelInput {
 
 protocol LookViewModelOutput {
     var projectDataRelay: BehaviorRelay<Project?> { get }
-    var plansRelay: PublishRelay<List<Plan>> { get }
     var plansDictionaryRelay: BehaviorRelay<[String: [Plan]]> { get }
     var reloadDataRelay: PublishRelay<Void> { get }
 }
@@ -36,7 +35,6 @@ final class LookViewModel: LookViewModelType, LookViewModelInput, LookViewModelO
 
     // output
     private(set) var projectDataRelay: BehaviorRelay<Project?> = BehaviorRelay(value: nil)
-    private(set) var plansRelay: PublishRelay<List<Plan>> = PublishRelay()
     private(set) var plansDictionaryRelay: BehaviorRelay<[String: [Plan]]> = BehaviorRelay(value: [:])
     private(set) var reloadDataRelay: PublishRelay<Void> = PublishRelay()
 
@@ -61,12 +59,6 @@ final class LookViewModel: LookViewModelType, LookViewModelInput, LookViewModelO
             .subscribe(with: self) { owner, project in
                 // output
                 owner.projectDataRelay.accept(project)
-            }
-            .disposed(by: disposeBag)
-
-        project
-            .subscribe(with: self) { owner, project in
-                owner.plansRelay.accept(project.plans)
             }
             .disposed(by: disposeBag)
 
