@@ -222,13 +222,12 @@ extension LookViewController: UITableViewDelegate, UITableViewDataSource {
 
         let plansDictionary = viewModel.output.plansDictionaryRelay.value
         let key = plansDictionary.keys.sorted()[indexPath.section]
-        let plan = plansDictionary[key]?[indexPath.row]
+        guard let plan = plansDictionary[key]?[indexPath.row] else { return cell }
         // MEMO: - ここだけちゃんと表示させる！
-        // TODO: - unwrapした情報を載せられるように
         cell.setUp(
-            startedTime: plan?.startTime ?? "startHoge",
-            finishTime: plan?.finishTime ?? "finishHoge",
-            planText: plan?.planText ?? "planTextHoge"
+            startedTime: plan.startTime,
+            finishTime: plan.finishTime,
+            planText: plan.planText
         )
         return cell
     }
