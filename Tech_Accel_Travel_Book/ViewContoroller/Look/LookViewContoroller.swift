@@ -198,7 +198,7 @@ final class LookViewController: UIViewController {
 extension LookViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let plansDictionary = viewModel.output.plansDictionaryRelay.value
-        return plansDictionary.keys.count
+        return plansDictionary.values.count
     }
 
     // セクションの数
