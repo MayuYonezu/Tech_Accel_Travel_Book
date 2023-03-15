@@ -220,9 +220,17 @@
 		1E4003F229BD22240066CC36 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				1E4003ED29BD1CF00066CC36 /* LookViewModel.swift */,
+				1ECECA3D29BF4A3100B94A49 /* Look */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1ECECA3D29BF4A3100B94A49 /* Look */ = {
+			isa = PBXGroup;
+			children = (
+				1E4003ED29BD1CF00066CC36 /* LookViewModel.swift */,
+			);
+			path = Look;
 			sourceTree = "<group>";
 		};
 		731A193B299667B00097F7EB /* Preview */ = {

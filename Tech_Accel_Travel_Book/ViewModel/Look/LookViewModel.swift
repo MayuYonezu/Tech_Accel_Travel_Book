@@ -58,6 +58,7 @@ final class LookViewModel: LookViewModelType, LookViewModelInput, LookViewModelO
         project
             .subscribe(with: self) { owner, project in
                 // output
+                // projectをProjectDataRelayに流してる
                 owner.projectDataRelay.accept(project)
             }
             .disposed(by: disposeBag)
@@ -73,11 +74,16 @@ final class LookViewModel: LookViewModelType, LookViewModelInput, LookViewModelO
                     }
                 }
                 // output
+                // plansDictionaryRelayにplansDicを流す
                 owner.plansDictionaryRelay.accept(plansDic)
+            }
+            .disposed(by: disposeBag)
+
+        project
+            .subscribe(with: self) { owner, _ in
                 // output
                 owner.reloadDataRelay.accept(())
             }
             .disposed(by: disposeBag)
-
     }
 }
