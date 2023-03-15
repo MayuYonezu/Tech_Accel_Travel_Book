@@ -77,24 +77,6 @@ final class LookViewController: UIViewController {
     init(viewModel: LookViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        // output
-        doneBarButtonItem.rx.tap.asObservable()
-            .subscribe(with: self) { owner, _ in
-                owner.navigationController?.popToRootViewController(animated: true)
-            }
-            .disposed(by: disposeBag)
-        // ViewModelのoutputのprojectDataRelayを購読してる
-        viewModel.output.projectDataRelay
-            .subscribe(with: self) { owner, data in
-                guard let data else {
-                    return
-                }
-                owner.titleLabel.text = "\(data.title)"
-                owner.startDayLabel.text = "\(data.startDays)"
-                owner.finishDayLabel.text = "\(data.finishDays)"
-                owner.missionLabel.text = "\(data.mission)"
-            }
-            .disposed(by: disposeBag)
         // 全ての処理が終わったことを検知して、owner.tableView.reloadData()
         viewModel.output.reloadDataRelay
             .subscribe(with: self) { owner, _ in
@@ -127,6 +109,7 @@ final class LookViewController: UIViewController {
         view.addSubview(tableView)
         // ViewModelのinputのfetchStartにVoidを流す
         viewModel.input.fetchStart.accept(())
+        addRxObserver()
     }
 
     override func viewDidLayoutSubviews() {
@@ -186,6 +169,27 @@ final class LookViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
+    }
+
+    private func addRxObserver() {
+        // output
+        doneBarButtonItem.rx.tap.asObservable()
+            .subscribe(with: self) { owner, _ in
+                owner.navigationController?.popToRootViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
+        // ViewModelのoutputのprojectDataRelayを購読してる
+        viewModel.output.projectDataRelay
+            .subscribe(with: self) { owner, data in
+                guard let data else {
+                    return
+                }
+                owner.titleLabel.text = "\(data.title)"
+                owner.startDayLabel.text = "\(data.startDays)"
+                owner.finishDayLabel.text = "\(data.finishDays)"
+                owner.missionLabel.text = "\(data.mission)"
+            }
+            .disposed(by: disposeBag)
     }
 }
 
