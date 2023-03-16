@@ -250,14 +250,11 @@ extension LookViewController: UITableViewDelegate, UITableViewDataSource {
 
     // セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
-        //        return plansDictionary.keys.count
-        1
+        self.presenter.numberOfSection
     }
 
     // セクションのタイトル
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let plan = self.presenter.returnPlan(indexPath: indexPath)
-//        return plan.daySection
         "test"
     }
 

@@ -7,6 +7,7 @@ protocol LookPresenterInput: AnyObject {
     func getProjectData()
     func returnPlan(indexPath: IndexPath) -> Plan
     func returnProject(projectId: Int) -> Project
+    var numberOfSection: Int { get }
 }
 
 final class LookPresenter {
@@ -46,4 +47,14 @@ extension LookPresenter: LookPresenterInput {
         self.projects = realm.objects(Project.self).reversed()
     }
 
+    var numberOfSection: Int {
+        var sectionArray:[String] = []
+        let plansNumber = self.plans.count
+        for plansNumber in 0 ..< (plansNumber-1) {
+            let plansDetail = self.plans[plansNumber]
+            sectionArray.append(plansDetail.daySection)
+        }
+        sectionArray = Array(Set(sectionArray))
+        return sectionArray.count
+    }
 }
