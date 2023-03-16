@@ -10,6 +10,8 @@ final class LookViewController: UIViewController {
     private var plans = List<Plan>()
     private var plansDictionary = [String: [Plan]]()
     private var num = Int()
+    // ListVCからプロジェクトのIDを取得
+    var projectId: String = ""
 
     private let doneBarButtonItem = UIBarButtonItem()
     private lazy var tableView: UITableView = {
@@ -93,6 +95,9 @@ final class LookViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("projectID:",projectId)
+        var newId = Int(projectId.filter("0123456789".contains))
+
         // データ取得
         self.presenter.getProjectData()
         self.presenter.getPlanData()
@@ -116,7 +121,7 @@ final class LookViewController: UIViewController {
         view.addSubview(tableView)
 
         // 文字を入れる
-        let projects = self.presenter.returnProject()
+        let projects = self.presenter.returnProject(projectId: newId ?? 0)
         titleLabel.text = projects.title
         startDayLabel.text = projects.startDays
         finishDayLabel.text = projects.finishDays
@@ -251,22 +256,17 @@ extension LookViewController: UITableViewDelegate, UITableViewDataSource {
 
     // セクションのタイトル
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        //        let plans = plansDictionary.keys.sorted()
-        //        let sectionTitle = plans[section]
-        //        return sectionTitle
-        return "test"
+//        let plan = self.presenter.returnPlan(indexPath: indexPath)
+//        return plan.daySection
+        "test"
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LookTableViewCell.identifier, for: indexPath) as? LookTableViewCell else {
             fatalError()
         }
-        //        let key = plansDictionary.keys.sorted()[indexPath.section]
-        //        let plan = plansDictionary[key]?[indexPath.row]
-        // MEMO: - ここだけちゃんと表示させる！
         let plan = self.presenter.returnPlan(indexPath: indexPath)
         cell.setUp(startedTime: plan.startTime, finishTime: plan.finishTime, planText: plan.planText)
-        //        cell.setUp(startedTime: "start", finishTime: "finishTime", planText: "planText")
         return cell
     }
 }

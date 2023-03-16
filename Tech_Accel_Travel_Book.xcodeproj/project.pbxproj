@@ -176,7 +176,6 @@
 			isa = PBXGroup;
 			children = (
 				73FA9BDC29B617DA00A8547A /* Presenter */,
-				03D6C56029BC0B3600CD08F7 /* Look */,
 				734D6C77297D29CE00D14F3E /* Common */,
 				1C7B122C297B8FD800D784A3 /* AppDelegate.swift */,
 				1C7B122E297B8FD800D784A3 /* SceneDelegate.swift */,
@@ -334,6 +333,7 @@
 		73FA9BDC29B617DA00A8547A /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				03D6C56029BC0B3600CD08F7 /* Look */,
 				73FA9BDD29B617E200A8547A /* List */,
 			);
 			path = Presenter;

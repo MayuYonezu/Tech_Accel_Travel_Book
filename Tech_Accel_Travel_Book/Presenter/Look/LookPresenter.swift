@@ -6,7 +6,7 @@ protocol LookPresenterInput: AnyObject {
     func getPlanData()
     func getProjectData()
     func returnPlan(indexPath: IndexPath) -> Plan
-    func returnProject() -> Project
+    func returnProject(projectId: Int) -> Project
 }
 
 final class LookPresenter {
@@ -27,9 +27,9 @@ extension LookPresenter: LookPresenterInput {
         return self.plans[indexPath.row]
     }
 
-    func returnProject() -> Project {
-        // ここのprojectナンバーの指定方法が知りたいです...！
-        return self.projects[0]
+    func returnProject(projectId: Int) -> Project {
+        // ListVCで選択されたidのプロジェクトを取得
+        return self.projects[projectId]
     }
 
     func getPlanData() {
