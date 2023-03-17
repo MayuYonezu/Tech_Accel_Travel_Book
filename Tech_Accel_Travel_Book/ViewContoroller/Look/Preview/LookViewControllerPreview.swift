@@ -11,7 +11,7 @@ import SwiftUI
 enum LookViewControllerPreview: PreviewProvider {
     static let previews = PreviewGroup.viewController {
         Preview("LookViewController") {
-            let viewController = LookViewController()
+            let viewController = LookViewController(presenter: LookPresenter())
             return viewController
         }
     }

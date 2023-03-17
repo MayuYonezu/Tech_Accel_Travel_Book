@@ -67,7 +67,7 @@ extension ListPresenter: ListPresenterInput {
 
         let mockProject: Project = {
             let project = Project()
-            project.id = "idText\(String(projectId!.count + 4))"
+            project.id = "\(String(projectId!.count + 4))"
             project.title = "titleText"
             project.startDays = "startDayText"
             project.finishDays = "finishDayText"

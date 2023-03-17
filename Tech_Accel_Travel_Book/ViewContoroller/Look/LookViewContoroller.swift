@@ -2,10 +2,16 @@ import UIKit
 import RealmSwift
 
 final class LookViewController: UIViewController {
+
+    // リストプレゼンターから値を取得するため
+    private let presenter: LookPresenterInput
+
     private var projectData: Project?
     private var plans = List<Plan>()
     private var plansDictionary = [String: [Plan]]()
     private var num = Int()
+    // ListVCからプロジェクトのIDを取得
+    var projectId: String = ""
 
     private let doneBarButtonItem = UIBarButtonItem()
     private lazy var tableView: UITableView = {
@@ -78,7 +84,8 @@ final class LookViewController: UIViewController {
         return mainPinkImageView
     }()
 
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+    init(presenter: LookPresenterInput) {
+        self.presenter = presenter
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -88,6 +95,13 @@ final class LookViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("projectID:",projectId)
+        var newId = Int(projectId.filter("0123456789".contains))
+
+        // データ取得
+        self.presenter.getProjectData()
+        self.presenter.getPlanData()
+
         // backgroundColor指定
         view.backgroundColor = .white
         // Viewに表示
@@ -105,6 +119,13 @@ final class LookViewController: UIViewController {
         view.addSubview(missionTitleLabel)
         view.addSubview(mainPinkImageView)
         view.addSubview(tableView)
+
+        // 文字を入れる
+        let projects = self.presenter.returnProject(projectId: newId ?? 0)
+        titleLabel.text = projects.title
+        startDayLabel.text = projects.startDays
+        finishDayLabel.text = projects.finishDays
+        missionLabel.text = projects.mission
 
         // Funtions
         realm_process()
@@ -224,39 +245,25 @@ final class LookViewController: UIViewController {
 
 extension LookViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        let plans = plansDictionary.keys.sorted()
-//        let key = plans[section]
-//        return plansDictionary[key]?.count ?? 0
-        1
+        self.presenter.numberOfProject
     }
 
     // セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
-//        return plansDictionary.keys.count
-        1
+        self.presenter.numberOfSection
     }
 
     // セクションのタイトル
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        let plans = plansDictionary.keys.sorted()
-//        let sectionTitle = plans[section]
-//        return sectionTitle
-        return "test"
+        "test"
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LookTableViewCell.identifier, for: indexPath) as? LookTableViewCell else {
             fatalError()
         }
-//        let key = plansDictionary.keys.sorted()[indexPath.section]
-//        let plan = plansDictionary[key]?[indexPath.row]
-
-        // MEMO: - ここだけちゃんと表示させる！
-        cell.setUp(startedTime: "start", finishTime: "finishTime", planText: "planText")
+        let plan = self.presenter.returnPlan(indexPath: indexPath)
+        cell.setUp(startedTime: plan.startTime, finishTime: plan.finishTime, planText: plan.planText)
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
