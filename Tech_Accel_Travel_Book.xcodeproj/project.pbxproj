@@ -25,6 +25,7 @@
 		1C7B1265297B971300D784A3 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1264297B971300D784A3 /* ListViewController.swift */; };
 		1C7B1267297B973D00D784A3 /* LookViewContoroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */; };
 		1C7B1269297B979000D784A3 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7B1268297B979000D784A3 /* Project.swift */; };
+		1E4003EE29BD1CF00066CC36 /* LookViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4003ED29BD1CF00066CC36 /* LookViewModel.swift */; };
 		731A1936299663910097F7EB /* LookViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A1935299663910097F7EB /* LookViewControllerPreview.swift */; };
 		731A1938299663D60097F7EB /* PreviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A1937299663D60097F7EB /* PreviewProvider.swift */; };
 		731A193A299667830097F7EB /* WelcomeViewControllerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 731A1939299667830097F7EB /* WelcomeViewControllerPreview.swift */; };
@@ -86,6 +87,7 @@
 		1C7B1264297B971300D784A3 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		1C7B1266297B973D00D784A3 /* LookViewContoroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookViewContoroller.swift; sourceTree = "<group>"; };
 		1C7B1268297B979000D784A3 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		1E4003ED29BD1CF00066CC36 /* LookViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookViewModel.swift; sourceTree = "<group>"; };
 		731A1935299663910097F7EB /* LookViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookViewControllerPreview.swift; sourceTree = "<group>"; };
 		731A1937299663D60097F7EB /* PreviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewProvider.swift; sourceTree = "<group>"; };
 		731A1939299667830097F7EB /* WelcomeViewControllerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewControllerPreview.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		1C7B122B297B8FD800D784A3 /* Tech_Accel_Travel_Book */ = {
 			isa = PBXGroup;
 			children = (
+				1E4003F229BD22240066CC36 /* ViewModel */,
 				73FA9BDC29B617DA00A8547A /* Presenter */,
 				734D6C77297D29CE00D14F3E /* Common */,
 				1C7B122C297B8FD800D784A3 /* AppDelegate.swift */,
@@ -222,6 +225,22 @@
 				03BCBC292987F11C00B3FF1A /* MainRealm.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		1E4003F229BD22240066CC36 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1ECECA3D29BF4A3100B94A49 /* Look */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1ECECA3D29BF4A3100B94A49 /* Look */ = {
+			isa = PBXGroup;
+			children = (
+				1E4003ED29BD1CF00066CC36 /* LookViewModel.swift */,
+			);
+			path = Look;
 			sourceTree = "<group>";
 		};
 		731A193B299667B00097F7EB /* Preview */ = {
@@ -541,6 +560,7 @@
 				731A19452998EFD10097F7EB /* LookTableViewCell.swift in Sources */,
 				734D6C79297D29DD00D14F3E /* Assets.swift in Sources */,
 				1C7B122D297B8FD800D784A3 /* AppDelegate.swift in Sources */,
+				1E4003EE29BD1CF00066CC36 /* LookViewModel.swift in Sources */,
 				731A19472998F2A10097F7EB /* LookTableViewCellPreview.swift in Sources */,
 				03BCBD57299EAEF900B3FF1A /* ListTableViewCellPreview.swift in Sources */,
 				731A1940299667D00097F7EB /* ListViewControllerPreview.swift in Sources */,

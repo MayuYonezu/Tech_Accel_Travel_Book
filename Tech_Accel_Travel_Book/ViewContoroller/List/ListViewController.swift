@@ -87,8 +87,7 @@ extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 extension ListViewController: ListPresenterOutput {
 
     func transition(project: Project) {
-        let lookVC = LookViewController(presenter: LookPresenter())
-        lookVC.projectId = project.id
+        let lookVC = LookViewController(viewModel: LookViewModel(projectID: project.id))
         self.navigationController?.pushViewController(lookVC, animated: true)
     }
 

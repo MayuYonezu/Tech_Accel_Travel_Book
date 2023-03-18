@@ -1,17 +1,9 @@
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 final class LookViewController: UIViewController {
-
-    // リストプレゼンターから値を取得するため
-    private let presenter: LookPresenterInput
-
-    private var projectData: Project?
-    private var plans = List<Plan>()
-    private var plansDictionary = [String: [Plan]]()
-    private var num = Int()
-    // ListVCからプロジェクトのIDを取得
-    var projectId: String = ""
 
     private let doneBarButtonItem = UIBarButtonItem()
     private lazy var tableView: UITableView = {
@@ -26,7 +18,6 @@ final class LookViewController: UIViewController {
     // titleLabel生成
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Title"
         label.font = UIFont.boldSystemFont(ofSize: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
@@ -35,7 +26,6 @@ final class LookViewController: UIViewController {
     // startDayLabel生成
     private let startDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "0000/00/00"
         label.font = UIFont.systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
@@ -44,7 +34,6 @@ final class LookViewController: UIViewController {
     // finishLabel生成
     private let finishDayLabel: UILabel = {
         let label = UILabel()
-        label.text = "0000/00/00"
         label.font = UIFont.systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
@@ -62,7 +51,6 @@ final class LookViewController: UIViewController {
     // missionTitleLable生成
     private let missionTitleLabel: UILabel = {
         let missionTitleLabel = UILabel()
-        missionTitleLabel.text = "Mission"
         missionTitleLabel.font = UIFont.boldSystemFont(ofSize: 17)
         missionTitleLabel.textColor = UIColor(asset: Asset.mainPink)
         missionTitleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +59,6 @@ final class LookViewController: UIViewController {
     // missionLabel生成
     private let missionLabel: UILabel = {
         let missionLabel = UILabel()
-        missionLabel.text = "aaa"
         missionLabel.font = UIFont.systemFont(ofSize: 17)
         missionLabel.translatesAutoresizingMaskIntoConstraints = false
         missionLabel.textColor = .black
@@ -84,9 +71,18 @@ final class LookViewController: UIViewController {
         return mainPinkImageView
     }()
 
-    init(presenter: LookPresenterInput) {
-        self.presenter = presenter
+    private let disposeBag = DisposeBag()
+    private let viewModel: LookViewModel
+
+    init(viewModel: LookViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        // 全ての処理が終わったことを検知して、owner.tableView.reloadData()
+        viewModel.output.reloadDataRelay
+            .subscribe(with: self) { owner, _ in
+                owner.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
 
     required init?(coder: NSCoder) {
@@ -106,7 +102,6 @@ final class LookViewController: UIViewController {
         view.backgroundColor = .white
         // Viewに表示
         doneBarButtonItem.style = .done
-        doneBarButtonItem.action = #selector(done)
         doneBarButtonItem.target = self
         doneBarButtonItem.title = L10n.done
         self.navigationItem.rightBarButtonItem = doneBarButtonItem
@@ -119,18 +114,9 @@ final class LookViewController: UIViewController {
         view.addSubview(missionTitleLabel)
         view.addSubview(mainPinkImageView)
         view.addSubview(tableView)
-
-        // 文字を入れる
-        let projects = self.presenter.returnProject(projectId: newId ?? 0)
-        titleLabel.text = projects.title
-        startDayLabel.text = projects.startDays
-        finishDayLabel.text = projects.finishDays
-        missionLabel.text = projects.mission
-
-        // Funtions
-        realm_process()
-        getPlanData()
-        getPlanDicData()
+        // ViewModelのinputのfetchStartにVoidを流す
+        viewModel.input.fetchStart.accept(())
+        addRxObserver()
     }
 
     override func viewDidLayoutSubviews() {
@@ -192,78 +178,62 @@ final class LookViewController: UIViewController {
         ])
     }
 
-    // Realm系の処理
-    private func realm_process() {
-        // 文字列で条件文を書いてデータを取得
-        guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
-            return
-        }
-        print(projectData)
-        for data in projectData {
-            titleLabel.text = "\(data.title)"
-            startDayLabel.text = "\(data.startDays)"
-            finishDayLabel.text = "\(data.finishDays)"
-            missionLabel.text = "\(data.mission)"
-            plans = data.plans
-        }
-        tableView.reloadData()
-    }
-
-    @objc func done() {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-
-    private func getPlanData() {
-        // 文字列で条件文を書いてデータを取得
-        guard let projectData = MainRealm.shared.realm?.objects(Project.self).filter("id == '\(num)'") else {
-            return
-        }
-        for data in projectData {
-            plans = data.plans
-            tableView.reloadData()
-        }
-    }
-
-    private func getPlanDicData() {
-        // 全部の値が取得されてしまう
-        guard let plans = MainRealm.shared.realm?.objects(Plan.self).reversed() else {
-            return
-        }
-        plansDictionary = [:]
-        for getPlan in plans {
-            if plansDictionary.keys.contains(getPlan.daySection) {
-                // ディクショナリーの鍵に日付が含まれてたら、kを追加
-                plansDictionary[getPlan.daySection]?.append(getPlan)
-            } else {
-                // ディクショナリーの鍵に日付が含まれてなかったら配列を初期化
-                plansDictionary[getPlan.daySection] = [getPlan]
+    private func addRxObserver() {
+        // output
+        doneBarButtonItem.rx.tap.asObservable()
+            .subscribe(with: self) { owner, _ in
+                owner.navigationController?.popToRootViewController(animated: true)
             }
-        }
-        tableView.reloadData()
+            .disposed(by: disposeBag)
+        // ViewModelのoutputのprojectDataRelayを購読してる
+        viewModel.output.projectDataRelay
+            .subscribe(with: self) { owner, data in
+                guard let data else {
+                    return
+                }
+                owner.titleLabel.text = "\(data.title)"
+                owner.startDayLabel.text = "\(data.startDays)"
+                owner.finishDayLabel.text = "\(data.finishDays)"
+                owner.missionLabel.text = "\(data.mission)"
+            }
+            .disposed(by: disposeBag)
     }
 }
 
 extension LookViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.presenter.numberOfProject
+        let plansDictionary = viewModel.output.plansDictionaryRelay.value
+        return plansDictionary.values.count
     }
 
     // セクションの数
     func numberOfSections(in tableView: UITableView) -> Int {
-        self.presenter.numberOfSection
+        let plansDictionary = viewModel.output.plansDictionaryRelay.value
+        return plansDictionary.keys.count
     }
 
     // セクションのタイトル
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "test"
+        let plansDictionary = viewModel.output.plansDictionaryRelay.value
+        let plans = plansDictionary.keys.sorted()
+        let sectionTitle = plans[section]
+        return sectionTitle
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: LookTableViewCell.identifier, for: indexPath) as? LookTableViewCell else {
             fatalError()
         }
-        let plan = self.presenter.returnPlan(indexPath: indexPath)
-        cell.setUp(startedTime: plan.startTime, finishTime: plan.finishTime, planText: plan.planText)
+
+        let plansDictionary = viewModel.output.plansDictionaryRelay.value
+        let key = plansDictionary.keys.sorted()[indexPath.section]
+        guard let plan = plansDictionary[key]?[indexPath.row] else { return cell }
+        // MEMO: - ここだけちゃんと表示させる！
+        cell.setUp(
+            startedTime: plan.startTime,
+            finishTime: plan.finishTime,
+            planText: plan.planText
+        )
         return cell
     }
 }
