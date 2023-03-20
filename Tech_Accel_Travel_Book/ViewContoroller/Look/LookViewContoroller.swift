@@ -91,12 +91,6 @@ final class LookViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("projectID:",projectId)
-        var newId = Int(projectId.filter("0123456789".contains))
-
-        // データ取得
-        self.presenter.getProjectData()
-        self.presenter.getPlanData()
 
         // backgroundColor指定
         view.backgroundColor = .white

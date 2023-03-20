@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class WelcomeViewController: UIViewController {
     private let logoImageView: UIImageView = {
@@ -32,8 +34,32 @@ final class WelcomeViewController: UIViewController {
         return button
     }()
 
-    init() {
+    private let disposeBag = DisposeBag()
+    private let viewModel: WelcomeViewModel
+
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+//        self.viewModel = .init()
+//        super.init(nibName: nil, bundle: nil)
+//    }
+
+    public init(viewModel: WelcomeViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+
+        // input
+        projectListButton.rx.tap.asObservable()
+            .bind(to: viewModel.input.didTapProjectListButton)
+            .disposed(by: disposeBag)
+
+        // output
+        viewModel.output.nextVC
+            .subscribe(with: self, onNext: { _, _ in
+                let vc = ListViewController()
+                let preseter = ListPresenter(view: vc)
+                vc.inject(presenter: preseter)
+                self.navigationController?.pushViewController(vc, animated: true)
+            })
+            .disposed(by: disposeBag)
     }
 
     required init(coder: NSCoder) {
@@ -61,7 +87,7 @@ final class WelcomeViewController: UIViewController {
         navigationItem.compactAppearance = appearance
 
         // AddTarget
-        projectListButton.addTarget(self, action: #selector(toListVC), for: .touchUpInside)
+//        projectListButton.addTarget(self, action: #selector(toListVC), for: .touchUpInside)
     }
 
     override func viewDidLayoutSubviews() {
@@ -87,9 +113,4 @@ final class WelcomeViewController: UIViewController {
         ])
     }
 
-    @objc func toListVC() {
-        let listVC = ListViewController()
-        listVC.inject(presenter: ListPresenter(view: listVC))
-        self.navigationController?.pushViewController(listVC, animated: true)
-    }
 }
