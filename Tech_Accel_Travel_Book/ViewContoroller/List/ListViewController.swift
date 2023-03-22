@@ -7,6 +7,8 @@
 
 import UIKit
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 final class ListViewController: UIViewController {
 
@@ -20,18 +22,22 @@ final class ListViewController: UIViewController {
         return table
     }()
 
-    private var presenter: ListPresenterInput!
+    private let disposeBag = DisposeBag()
+    private let viewModel: ListViewModel
 
-    func inject(presenter: ListPresenterInput) {
-        self.presenter = presenter
-    }
-
-    init() {
+    init(viewModel: ListViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+
+        viewModel.output.reloadDataRelay
+            .subscribe(with: self) { owner, _ in
+                owner.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError()
     }
 
     override func viewDidLoad() {
@@ -49,7 +55,8 @@ final class ListViewController: UIViewController {
             navigationItem.compactAppearance = appearance
         }
 
-        self.presenter.getProjectData()
+        // ViewModelのinputのfetchStartにVoidを流す
+        viewModel.input.fetchStart.accept(())
     }
 
     override func viewDidLayoutSubviews() {
@@ -66,21 +73,27 @@ final class ListViewController: UIViewController {
 extension ListViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.presenter.numberOfProject
+        guard let projectData = viewModel.output.projectDataCountRelay.value else { return 0 }
+        return Int(projectData)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: ListTableViewCell.identifier, for: indexPath) as? ListTableViewCell else {
             fatalError()
         }
-        let project = self.presenter.returnProject(indexPath: indexPath)
-        cell.setUp(titleText: project.title)
+        let project = viewModel.output.projectDataRelay.value
+        cell.setUp(titleText: project?.title ?? "")
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        self.presenter.didSelectRowAt(indexPath: indexPath)
+        tableView.rx.itemSelected
+            .subscribe(with: self) { owner, indexPath in
+                owner.viewModel.input.projectId.accept(indexPath)
+                print(indexPath.row)
+            }
+            .disposed(by: disposeBag)
     }
 }
 
