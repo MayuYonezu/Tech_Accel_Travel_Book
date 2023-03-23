@@ -11,18 +11,19 @@ protocol WelcomeViewModelOutput {
     var nextVC: PublishRelay<Void> { get }
 }
 
-//protocol WelcomeViewModelOutput {
-//
-//}
+protocol WelcomeViewModelType {
+  var input: WelcomeViewModelInput { get }
+  var output: WelcomeViewModelOutput { get }
+}
 
-final class WelcomeViewModel: WelcomeViewModelInput, WelcomeViewModelOutput {
+final class WelcomeViewModel: WelcomeViewModelInput, WelcomeViewModelOutput, WelcomeViewModelType {
 
     var input: WelcomeViewModelInput { self }
     var output: WelcomeViewModelOutput { self }
 
     // input
-    var didTapNewProjectButton: PublishRelay<Void> = PublishRelay()
-    var didTapProjectListButton: PublishRelay<Void> = PublishRelay()
+    let didTapNewProjectButton: PublishRelay<Void> = PublishRelay()
+    let didTapProjectListButton: PublishRelay<Void> = PublishRelay()
 
     // output
     private(set) var nextVC: PublishRelay<Void> = PublishRelay()

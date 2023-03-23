@@ -37,12 +37,7 @@ final class WelcomeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private let viewModel: WelcomeViewModel
 
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-//        self.viewModel = .init()
-//        super.init(nibName: nil, bundle: nil)
-//    }
-
-    public init(viewModel: WelcomeViewModel) {
+    init(viewModel: WelcomeViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
 
