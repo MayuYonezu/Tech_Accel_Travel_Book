@@ -26,7 +26,7 @@ MissionTravelは旅とミッションを掛け合わせた旅の計画を立て�
 ピンクと白を基調とした可愛らしいデザイン。
 MissionTravelで、家族や友だち、恋人といつもの旅行からワンランクアップした旅の思い出を作りが可能!!
 
-【デザイン】
+【デザイン】  
 <img src="https://github.com/MayuYonezu/Tech_Accel_Travel_Book/assets/89147867/b6c2398b-1800-4543-958c-f4a498b49c87" width="200">
 <img src="https://github.com/MayuYonezu/Tech_Accel_Travel_Book/assets/89147867/fb91f674-8cae-4579-b479-3c9b0b4798ac" width="200">
 <img src="https://github.com/MayuYonezu/Tech_Accel_Travel_Book/assets/89147867/c06a86c3-3255-41e2-82a3-2a0722885402" width="200">
